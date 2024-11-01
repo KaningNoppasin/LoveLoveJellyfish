@@ -1,5 +1,5 @@
 Flow report for mainVHDL
-Fri Nov 01 16:47:59 2024
+Fri Nov 01 17:04:06 2024
 Quartus Prime Version 20.1.1 Build 720 11/11/2020 SJ Lite Edition
 
 
@@ -41,18 +41,18 @@ https://fpgasoftware.intel.com/eula.
 +----------------------------------------------------------------------------------+
 ; Flow Summary                                                                     ;
 +------------------------------------+---------------------------------------------+
-; Flow Status                        ; Successful - Fri Nov 01 16:47:57 2024       ;
+; Flow Status                        ; Successful - Fri Nov 01 17:04:03 2024       ;
 ; Quartus Prime Version              ; 20.1.1 Build 720 11/11/2020 SJ Lite Edition ;
 ; Revision Name                      ; mainVHDL                                    ;
 ; Top-level Entity Name              ; mainVHDL                                    ;
 ; Family                             ; Cyclone IV E                                ;
 ; Device                             ; EP4CE22F17C6                                ;
 ; Timing Models                      ; Final                                       ;
-; Total logic elements               ; 50 / 22,320 ( < 1 % )                       ;
-;     Total combinational functions  ; 50 / 22,320 ( < 1 % )                       ;
-;     Dedicated logic registers      ; 33 / 22,320 ( < 1 % )                       ;
-; Total registers                    ; 33                                          ;
-; Total pins                         ; 10 / 154 ( 6 % )                            ;
+; Total logic elements               ; 121 / 22,320 ( < 1 % )                      ;
+;     Total combinational functions  ; 118 / 22,320 ( < 1 % )                      ;
+;     Dedicated logic registers      ; 70 / 22,320 ( < 1 % )                       ;
+; Total registers                    ; 70                                          ;
+; Total pins                         ; 14 / 154 ( 9 % )                            ;
 ; Total virtual pins                 ; 0                                           ;
 ; Total memory bits                  ; 0 / 608,256 ( 0 % )                         ;
 ; Embedded Multiplier 9-bit elements ; 0 / 132 ( 0 % )                             ;
@@ -65,7 +65,7 @@ https://fpgasoftware.intel.com/eula.
 +-------------------+---------------------+
 ; Option            ; Setting             ;
 +-------------------+---------------------+
-; Start date & time ; 11/01/2024 16:47:41 ;
+; Start date & time ; 11/01/2024 17:03:45 ;
 ; Main task         ; Compilation         ;
 ; Revision Name     ; mainVHDL            ;
 +-------------------+---------------------+
@@ -76,7 +76,7 @@ https://fpgasoftware.intel.com/eula.
 +-------------------------------------+----------------------------------------+---------------+-------------+------------+
 ; Assignment Name                     ; Value                                  ; Default Value ; Entity Name ; Section Id ;
 +-------------------------------------+----------------------------------------+---------------+-------------+------------+
-; COMPILER_SIGNATURE_ID               ; 2543711158273.173045446107016          ; --            ; --          ; --         ;
+; COMPILER_SIGNATURE_ID               ; 2543711158273.173045542520028          ; --            ; --          ; --         ;
 ; MAX_CORE_JUNCTION_TEMP              ; 85                                     ; --            ; --          ; --         ;
 ; MIN_CORE_JUNCTION_TEMP              ; 0                                      ; --            ; --          ; --         ;
 ; NOMINAL_CORE_SUPPLY_VOLTAGE         ; 1.2V                                   ; --            ; --          ; --         ;
@@ -92,11 +92,11 @@ https://fpgasoftware.intel.com/eula.
 +----------------------+--------------+-------------------------+---------------------+------------------------------------+
 ; Module Name          ; Elapsed Time ; Average Processors Used ; Peak Virtual Memory ; Total CPU Time (on all processors) ;
 +----------------------+--------------+-------------------------+---------------------+------------------------------------+
-; Analysis & Synthesis ; 00:00:08     ; 1.0                     ; 4788 MB             ; 00:00:11                           ;
-; Fitter               ; 00:00:05     ; 1.0                     ; 5528 MB             ; 00:00:02                           ;
-; Assembler            ; 00:00:01     ; 1.0                     ; 4682 MB             ; 00:00:00                           ;
-; Timing Analyzer      ; 00:00:01     ; 1.0                     ; 4786 MB             ; 00:00:01                           ;
-; Total                ; 00:00:15     ; --                      ; --                  ; 00:00:14                           ;
+; Analysis & Synthesis ; 00:00:10     ; 1.0                     ; 4804 MB             ; 00:00:11                           ;
+; Fitter               ; 00:00:05     ; 1.0                     ; 5533 MB             ; 00:00:02                           ;
+; Assembler            ; 00:00:01     ; 1.0                     ; 4687 MB             ; 00:00:00                           ;
+; Timing Analyzer      ; 00:00:02     ; 1.0                     ; 4786 MB             ; 00:00:01                           ;
+; Total                ; 00:00:18     ; --                      ; --                  ; 00:00:14                           ;
 +----------------------+--------------+-------------------------+---------------------+------------------------------------+
 
 

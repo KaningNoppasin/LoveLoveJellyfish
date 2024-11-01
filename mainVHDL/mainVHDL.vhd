@@ -1,60 +1,138 @@
-------------------------------------------------------------------
-library ieee;
-use ieee.std_logic_1164.all;
-use ieee.numeric_std.all;
-------------------------------------------------------------------
+LIBRARY IEEE;
+USE IEEE.STD_LOGIC_1164.ALL;
+USE IEEE.NUMERIC_STD.ALL;
 
-entity mainVHDL is
-  generic ( WIDTH : natural := 8 );
-  port(
-     CLK  : in std_logic;
-     nRST : in std_logic;
-     LEDS : out std_logic_vector(WIDTH-1 downto 0)
+ENTITY mainVHDL IS
+  PORT (
+    CLK : IN STD_LOGIC; -- 50 MHz system clock
+    NRST : IN STD_LOGIC; -- Active-low asynchronous reset
+    ADC_CSN : OUT STD_LOGIC; -- ADC SPI chip-select
+    ADC_SCLK : OUT STD_LOGIC; -- ADC SPI SCLK
+    ADC_MOSI : OUT STD_LOGIC; -- ADC SPI MOSI
+    ADC_MISO : IN STD_LOGIC; -- ADC SPI MISO
+    LEDS : OUT STD_LOGIC_VECTOR(7 DOWNTO 0) -- 8-bit ADC OUTPUT
   );
-end mainVHDL;
+END mainVHDL;
 
-architecture SYNTH of mainVHDL is
-  constant ALL_ONES     : unsigned := to_unsigned(2**WIDTH-1,WIDTH);
-  constant COUNT_PERIOD : integer := 10000000;
-  subtype count_t is integer range 0 to (COUNT_PERIOD-1); 
-  signal  count : count_t := 0;
-  signal  reg   : std_logic_vector(WIDTH-1 downto 0);
-  signal  shift_en : std_logic;
+ARCHITECTURE behavioral OF mainVHDL IS
 
-begin
+  CONSTANT SPI_CLK_DIV : INTEGER := 25;
+  CONSTANT DATA_WIDTH : INTEGER := 16; -- for ADC128S022
 
-  LEDS <= not reg; -- used the register's bits (inverted) for LEDs
+  TYPE state_type IS (ST_IDLE, ST_START, ST_SCK_H, ST_SCK_L, ST_WAIT);
+  SIGNAL state : state_type := ST_IDLE;
 
-  process (nRST, CLK) begin
-    if nRST = '0' then
-      count <= 0;
+  SIGNAL cs_n : STD_LOGIC := '1';
+  SIGNAL sclk : STD_LOGIC := '0';
+  SIGNAL mosi : STD_LOGIC := '0';
+
+  SIGNAL bit_index : INTEGER RANGE 0 TO DATA_WIDTH - 1 := 0;
+  SIGNAL adc_data : STD_LOGIC_VECTOR(11 DOWNTO 0) := (OTHERS => '0');
+  SIGNAL channel : STD_LOGIC_VECTOR(2 DOWNTO 0) := "000";
+
+  SIGNAL shift_en : STD_LOGIC := '0';
+  SIGNAL shift_reg : STD_LOGIC_VECTOR(DATA_WIDTH - 1 DOWNTO 0);
+
+  CONSTANT WAIT_CNT_MAX : INTEGER := 31;
+  SIGNAL wait_cnt : INTEGER := 0;
+
+BEGIN
+
+  adc_csn <= cs_n;
+  adc_sclk <= sclk;
+  adc_mosi <= mosi;
+
+  --LEDS <= adc_data(11 downto 4); -- show 8-bit ADC value directly to LEDs
+
+  PROCESS (adc_data)
+    VARIABLE leds_on : INTEGER RANGE 0 TO 7;
+    VARIABLE value : INTEGER RANGE 0 TO 255;
+  BEGIN
+    value := to_integer(unsigned(adc_data(11 DOWNTO 4)));
+    value := value / 32;
+    leds_on := value;
+    LEDS <= (OTHERS => '0'); -- Default to all LEDs OFF
+    LEDS(leds_on DOWNTO 0) <= (OTHERS => '1'); -- Turn ON the corresponding LEDs
+  END PROCESS;
+
+  PROCESS (CLK, NRST)
+    VARIABLE count : INTEGER RANGE 0 TO SPI_CLK_DIV - 1 := 0;
+  BEGIN
+    IF NRST = '0' THEN
+      count := 0;
       shift_en <= '0';
-    elsif rising_edge(CLK) then
-      -- check whether the counter reaches the max. value.
-      if count = (COUNT_PERIOD-1) then 
-        count <= 0;       -- reset the counter.
-        shift_en <= '1';  -- enable register shift.
-      else
-        count <= count+1; -- increment counter by 1.
-        shift_en <= '0';  -- disable register shift.
-      end if;
-    end if;
-  end process;
+    ELSIF rising_edge(CLK) THEN
+      IF count = SPI_CLK_DIV - 1 THEN
+        count := 0;
+        shift_en <= '1';
+      ELSE
+        count := count + 1;
+        shift_en <= '0';
+      END IF;
+    END IF;
+  END PROCESS;
 
-  process (nRST, CLK) begin
-    if nRST = '0' then
-      reg <= (others => '0'); -- clear the shift register.
-    elsif rising_edge(CLK) then
-      if  shift_en='1' then -- register shifting is enabled.  
-        if reg = std_logic_vector( ALL_ONES ) then
-          -- clear the shift register.
-          reg <= (others => '0'); 
-        else
-          -- shift left, insert '1' as LSB.
-          reg <= reg(reg'left-1 downto 0) & '1'; 
-        end if;
-        end if;
-    end if;
-  end process;
+  PROCESS (CLK, NRST)
+  BEGIN
+    IF NRST = '0' THEN
+      cs_n <= '1';
+      mosi <= '0';
+      sclk <= '0';
+      adc_data <= (OTHERS => '0');
+      channel <= (OTHERS => '0');
+      bit_index <= 0;
+      wait_cnt <= 0;
+      state <= ST_IDLE;
 
-end SYNTH;
+    ELSIF rising_edge(CLK) THEN
+
+      CASE state IS
+        WHEN ST_IDLE =>
+          bit_index <= 0;
+          channel <= "001"; -- Select channel ADC_IN1
+          cs_n <= '1';
+          sclk <= '1';
+          state <= ST_START;
+
+        WHEN ST_START =>
+          shift_reg <= (OTHERS => '0');
+          shift_reg(13 DOWNTO 11) <= channel; -- for ADC128S022
+          cs_n <= '0';
+          state <= ST_SCK_L;
+
+        WHEN ST_SCK_L =>
+          IF shift_en = '1' THEN
+            sclk <= '0';
+            mosi <= shift_reg(shift_reg'left);
+            state <= ST_SCK_H;
+          END IF;
+
+        WHEN ST_SCK_H =>
+          IF shift_en = '1' THEN
+            sclk <= '1';
+            shift_reg <= shift_reg(shift_reg'left - 1 DOWNTO 0) & adc_miso;
+            IF bit_index = DATA_WIDTH - 1 THEN
+              cs_n <= '1';
+              wait_cnt <= WAIT_CNT_MAX;
+              state <= ST_WAIT;
+            ELSE
+              bit_index <= bit_index + 1;
+              state <= ST_SCK_L;
+            END IF;
+          END IF;
+
+        WHEN ST_WAIT =>
+          adc_data <= shift_reg(11 DOWNTO 0);
+          IF wait_cnt = 0 THEN
+            state <= ST_IDLE;
+          ELSE
+            wait_cnt <= wait_cnt - 1;
+          END IF;
+
+        WHEN OTHERS =>
+          state <= ST_IDLE;
+      END CASE;
+    END IF;
+  END PROCESS;
+
+END behavioral;

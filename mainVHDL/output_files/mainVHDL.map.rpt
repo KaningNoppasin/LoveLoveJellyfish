@@ -1,5 +1,5 @@
 Analysis & Synthesis report for mainVHDL
-Fri Nov 01 16:47:50 2024
+Fri Nov 01 17:03:55 2024
 Quartus Prime Version 20.1.1 Build 720 11/11/2020 SJ Lite Edition
 
 
@@ -13,11 +13,14 @@ Quartus Prime Version 20.1.1 Build 720 11/11/2020 SJ Lite Edition
   5. Analysis & Synthesis Source Files Read
   6. Analysis & Synthesis Resource Usage Summary
   7. Analysis & Synthesis Resource Utilization by Entity
-  8. General Register Statistics
-  9. Parameter Settings for User Entity Instance: Top-level Entity: |mainVHDL
- 10. Post-Synthesis Netlist Statistics for Top Partition
- 11. Elapsed Time Per Partition
- 12. Analysis & Synthesis Messages
+  8. State Machine - |mainVHDL|state
+  9. Registers Removed During Synthesis
+ 10. General Register Statistics
+ 11. Inverted Register Statistics
+ 12. Multiplexer Restructuring Statistics (Restructuring Performed)
+ 13. Post-Synthesis Netlist Statistics for Top Partition
+ 14. Elapsed Time Per Partition
+ 15. Analysis & Synthesis Messages
 
 
 
@@ -44,16 +47,16 @@ https://fpgasoftware.intel.com/eula.
 +----------------------------------------------------------------------------------+
 ; Analysis & Synthesis Summary                                                     ;
 +------------------------------------+---------------------------------------------+
-; Analysis & Synthesis Status        ; Successful - Fri Nov 01 16:47:50 2024       ;
+; Analysis & Synthesis Status        ; Successful - Fri Nov 01 17:03:55 2024       ;
 ; Quartus Prime Version              ; 20.1.1 Build 720 11/11/2020 SJ Lite Edition ;
 ; Revision Name                      ; mainVHDL                                    ;
 ; Top-level Entity Name              ; mainVHDL                                    ;
 ; Family                             ; Cyclone IV E                                ;
-; Total logic elements               ; 50                                          ;
-;     Total combinational functions  ; 50                                          ;
-;     Dedicated logic registers      ; 33                                          ;
-; Total registers                    ; 33                                          ;
-; Total pins                         ; 10                                          ;
+; Total logic elements               ; 122                                         ;
+;     Total combinational functions  ; 118                                         ;
+;     Dedicated logic registers      ; 70                                          ;
+; Total registers                    ; 70                                          ;
+; Total pins                         ; 14                                          ;
 ; Total virtual pins                 ; 0                                           ;
 ; Total memory bits                  ; 0                                           ;
 ; Embedded Multiplier 9-bit elements ; 0                                           ;
@@ -160,7 +163,8 @@ https://fpgasoftware.intel.com/eula.
 ;                            ;             ;
 ; Usage by Processor         ; % Time Used ;
 ;     Processor 1            ; 100.0%      ;
-;     Processors 2-4         ;   0.0%      ;
+;     Processor 2            ;   0.0%      ;
+;     Processors 3-4         ;   0.0%      ;
 +----------------------------+-------------+
 
 
@@ -178,30 +182,30 @@ https://fpgasoftware.intel.com/eula.
 +---------------------------------------------+-----------+
 ; Resource                                    ; Usage     ;
 +---------------------------------------------+-----------+
-; Estimated Total logic elements              ; 50        ;
+; Estimated Total logic elements              ; 122       ;
 ;                                             ;           ;
-; Total combinational functions               ; 50        ;
+; Total combinational functions               ; 118       ;
 ; Logic element usage by number of LUT inputs ;           ;
-;     -- 4 input functions                    ; 17        ;
-;     -- 3 input functions                    ; 8         ;
-;     -- <=2 input functions                  ; 25        ;
+;     -- 4 input functions                    ; 21        ;
+;     -- 3 input functions                    ; 32        ;
+;     -- <=2 input functions                  ; 65        ;
 ;                                             ;           ;
 ; Logic elements by mode                      ;           ;
-;     -- normal mode                          ; 27        ;
-;     -- arithmetic mode                      ; 23        ;
+;     -- normal mode                          ; 83        ;
+;     -- arithmetic mode                      ; 35        ;
 ;                                             ;           ;
-; Total registers                             ; 33        ;
-;     -- Dedicated logic registers            ; 33        ;
+; Total registers                             ; 70        ;
+;     -- Dedicated logic registers            ; 70        ;
 ;     -- I/O registers                        ; 0         ;
 ;                                             ;           ;
-; I/O pins                                    ; 10        ;
+; I/O pins                                    ; 14        ;
 ;                                             ;           ;
 ; Embedded Multiplier 9-bit elements          ; 0         ;
 ;                                             ;           ;
 ; Maximum fan-out node                        ; CLK~input ;
-; Maximum fan-out                             ; 33        ;
-; Total fan-out                               ; 266       ;
-; Average fan-out                             ; 2.58      ;
+; Maximum fan-out                             ; 70        ;
+; Total fan-out                               ; 669       ;
+; Average fan-out                             ; 3.10      ;
 +---------------------------------------------+-----------+
 
 
@@ -210,9 +214,33 @@ https://fpgasoftware.intel.com/eula.
 +----------------------------+---------------------+---------------------------+-------------+--------------+---------+-----------+------+--------------+---------------------+-------------+--------------+
 ; Compilation Hierarchy Node ; Combinational ALUTs ; Dedicated Logic Registers ; Memory Bits ; DSP Elements ; DSP 9x9 ; DSP 18x18 ; Pins ; Virtual Pins ; Full Hierarchy Name ; Entity Name ; Library Name ;
 +----------------------------+---------------------+---------------------------+-------------+--------------+---------+-----------+------+--------------+---------------------+-------------+--------------+
-; |mainVHDL                  ; 50 (50)             ; 33 (33)                   ; 0           ; 0            ; 0       ; 0         ; 10   ; 0            ; |mainVHDL           ; mainVHDL    ; work         ;
+; |mainVHDL                  ; 118 (118)           ; 70 (70)                   ; 0           ; 0            ; 0       ; 0         ; 14   ; 0            ; |mainVHDL           ; mainVHDL    ; work         ;
 +----------------------------+---------------------+---------------------------+-------------+--------------+---------+-----------+------+--------------+---------------------+-------------+--------------+
 Note: For table entries with two numbers listed, the numbers in parentheses indicate the number of resources of the given type used by the specific entity alone. The numbers listed outside of parentheses indicate the total resources of the given type used by the specific entity and all of its sub-entities in the hierarchy.
+
+
+Encoding Type:  One-Hot
++---------------------------------------------------------------------------------------------------+
+; State Machine - |mainVHDL|state                                                                   ;
++----------------+---------------+----------------+----------------+----------------+---------------+
+; Name           ; state.ST_WAIT ; state.ST_SCK_L ; state.ST_SCK_H ; state.ST_START ; state.ST_IDLE ;
++----------------+---------------+----------------+----------------+----------------+---------------+
+; state.ST_IDLE  ; 0             ; 0              ; 0              ; 0              ; 0             ;
+; state.ST_START ; 0             ; 0              ; 0              ; 1              ; 1             ;
+; state.ST_SCK_H ; 0             ; 0              ; 1              ; 0              ; 1             ;
+; state.ST_SCK_L ; 0             ; 1              ; 0              ; 0              ; 1             ;
+; state.ST_WAIT  ; 1             ; 0              ; 0              ; 0              ; 1             ;
++----------------+---------------+----------------+----------------+----------------+---------------+
+
+
++--------------------------------------------------------------------------------+
+; Registers Removed During Synthesis                                             ;
++---------------------------------------+----------------------------------------+
+; Register name                         ; Reason for Removal                     ;
++---------------------------------------+----------------------------------------+
+; channel[1,2]                          ; Stuck at GND due to stuck port data_in ;
+; Total Number of Removed Registers = 2 ;                                        ;
++---------------------------------------+----------------------------------------+
 
 
 +------------------------------------------------------+
@@ -220,24 +248,33 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 +----------------------------------------------+-------+
 ; Statistic                                    ; Value ;
 +----------------------------------------------+-------+
-; Total registers                              ; 33    ;
+; Total registers                              ; 70    ;
 ; Number of registers using Synchronous Clear  ; 0     ;
-; Number of registers using Synchronous Load   ; 0     ;
-; Number of registers using Asynchronous Clear ; 33    ;
+; Number of registers using Synchronous Load   ; 50    ;
+; Number of registers using Asynchronous Clear ; 54    ;
 ; Number of registers using Asynchronous Load  ; 0     ;
-; Number of registers using Clock Enable       ; 8     ;
+; Number of registers using Clock Enable       ; 51    ;
 ; Number of registers using Preset             ; 0     ;
 +----------------------------------------------+-------+
 
 
-+--------------------------------------------------------------------------+
-; Parameter Settings for User Entity Instance: Top-level Entity: |mainVHDL ;
-+----------------+-------+-------------------------------------------------+
-; Parameter Name ; Value ; Type                                            ;
-+----------------+-------+-------------------------------------------------+
-; WIDTH          ; 8     ; Signed Integer                                  ;
-+----------------+-------+-------------------------------------------------+
-Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
++--------------------------------------------------+
+; Inverted Register Statistics                     ;
++----------------------------------------+---------+
+; Inverted Register                      ; Fan out ;
++----------------------------------------+---------+
+; cs_n                                   ; 2       ;
+; Total number of inverted registers = 1 ;         ;
++----------------------------------------+---------+
+
+
++------------------------------------------------------------------------------------------------------------------------------------------+
+; Multiplexer Restructuring Statistics (Restructuring Performed)                                                                           ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+----------------------------+
+; Multiplexer Inputs ; Bus Width ; Baseline Area ; Area if Restructured ; Saving if Restructured ; Registered ; Example Multiplexer Output ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+----------------------------+
+; 5:1                ; 32 bits   ; 96 LEs        ; 32 LEs               ; 64 LEs                 ; Yes        ; |mainVHDL|wait_cnt[30]     ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+----------------------------+
 
 
 +-----------------------------------------------------+
@@ -245,21 +282,26 @@ Note: In order to hide this table in the UI and the text report file, please set
 +-----------------------+-----------------------------+
 ; Type                  ; Count                       ;
 +-----------------------+-----------------------------+
-; boundary_port         ; 10                          ;
-; cycloneiii_ff         ; 33                          ;
-;     CLR               ; 25                          ;
-;     ENA CLR           ; 8                           ;
-; cycloneiii_lcell_comb ; 58                          ;
-;     arith             ; 23                          ;
-;         2 data inputs ; 23                          ;
-;     normal            ; 35                          ;
-;         1 data inputs ; 9                           ;
-;         2 data inputs ; 1                           ;
-;         3 data inputs ; 8                           ;
-;         4 data inputs ; 17                          ;
+; boundary_port         ; 14                          ;
+; cycloneiii_ff         ; 70                          ;
+;     CLR               ; 15                          ;
+;     CLR SLD           ; 3                           ;
+;     ENA CLR           ; 4                           ;
+;     ENA CLR SLD       ; 32                          ;
+;     ENA SLD           ; 15                          ;
+;     plain             ; 1                           ;
+; cycloneiii_lcell_comb ; 123                         ;
+;     arith             ; 35                          ;
+;         2 data inputs ; 35                          ;
+;     normal            ; 88                          ;
+;         0 data inputs ; 2                           ;
+;         1 data inputs ; 7                           ;
+;         2 data inputs ; 26                          ;
+;         3 data inputs ; 32                          ;
+;         4 data inputs ; 21                          ;
 ;                       ;                             ;
-; Max LUT depth         ; 4.30                        ;
-; Average LUT depth     ; 2.88                        ;
+; Max LUT depth         ; 4.10                        ;
+; Average LUT depth     ; 2.49                        ;
 +-----------------------+-----------------------------+
 
 
@@ -278,25 +320,29 @@ Note: In order to hide this table in the UI and the text report file, please set
 Info: *******************************************************************
 Info: Running Quartus Prime Analysis & Synthesis
     Info: Version 20.1.1 Build 720 11/11/2020 SJ Lite Edition
-    Info: Processing started: Fri Nov 01 16:47:41 2024
+    Info: Processing started: Fri Nov 01 17:03:45 2024
 Info: Command: quartus_map --read_settings_files=on --write_settings_files=off mainVHDL -c mainVHDL
 Warning (18236): Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
 Info (20030): Parallel compilation is enabled and will use 4 of the 4 processors detected
 Info (12021): Found 2 design units, including 1 entities, in source file mainvhdl.vhd
-    Info (12022): Found design unit 1: mainVHDL-SYNTH File: C:/Users/aleen/Downloads/miniProjectSignal/mainVHDL/mainVHDL.vhd Line: 16
-    Info (12023): Found entity 1: mainVHDL File: C:/Users/aleen/Downloads/miniProjectSignal/mainVHDL/mainVHDL.vhd Line: 7
+    Info (12022): Found design unit 1: mainVHDL-behavioral File: C:/Users/aleen/Downloads/miniProjectSignal/mainVHDL/mainVHDL.vhd Line: 17
+    Info (12023): Found entity 1: mainVHDL File: C:/Users/aleen/Downloads/miniProjectSignal/mainVHDL/mainVHDL.vhd Line: 5
 Info (12127): Elaborating entity "mainVHDL" for the top level hierarchy
+Info (13000): Registers with preset signals will power-up high File: C:/Users/aleen/Downloads/miniProjectSignal/mainVHDL/mainVHDL.vhd Line: 77
+Info (13003): DEV_CLRn pin will set, and not reset, register with preset signal due to NOT Gate Push-Back
+Warning (13024): Output pins are stuck at VCC or GND
+    Warning (13410): Pin "LEDS[0]" is stuck at VCC File: C:/Users/aleen/Downloads/miniProjectSignal/mainVHDL/mainVHDL.vhd Line: 13
 Info (286030): Timing-Driven Synthesis is running
 Info (16010): Generating hard_block partition "hard_block:auto_generated_inst"
     Info (16011): Adding 0 node(s), including 0 DDIO, 0 PLL, 0 transceiver and 0 LCELL
-Info (21057): Implemented 60 device resources after synthesis - the final resource count might be different
-    Info (21058): Implemented 2 input pins
-    Info (21059): Implemented 8 output pins
-    Info (21061): Implemented 50 logic cells
-Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 1 warning
-    Info: Peak virtual memory: 4788 megabytes
-    Info: Processing ended: Fri Nov 01 16:47:50 2024
-    Info: Elapsed time: 00:00:09
+Info (21057): Implemented 137 device resources after synthesis - the final resource count might be different
+    Info (21058): Implemented 3 input pins
+    Info (21059): Implemented 11 output pins
+    Info (21061): Implemented 123 logic cells
+Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 3 warnings
+    Info: Peak virtual memory: 4804 megabytes
+    Info: Processing ended: Fri Nov 01 17:03:55 2024
+    Info: Elapsed time: 00:00:10
     Info: Total CPU time (on all processors): 00:00:11
 
 

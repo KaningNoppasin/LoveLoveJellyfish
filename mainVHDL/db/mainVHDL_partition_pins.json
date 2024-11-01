@@ -4,7 +4,15 @@
 			"name" : "Top",
 			"pins" : [
 				{
-					"name" : "LEDS[0]",
+					"name" : "ADC_CSN",
+					"strict" : false
+				},
+				{
+					"name" : "ADC_SCLK",
+					"strict" : false
+				},
+				{
+					"name" : "ADC_MOSI",
 					"strict" : false
 				},
 				{
@@ -40,7 +48,11 @@
 					"strict" : false
 				},
 				{
-					"name" : "nRST",
+					"name" : "NRST",
+					"strict" : false
+				},
+				{
+					"name" : "ADC_MISO",
 					"strict" : false
 				}
 			]
