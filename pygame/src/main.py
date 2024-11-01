@@ -4,6 +4,7 @@ import sys
 import pygame
 import random
 from pygame.locals import *
+from config import *
 
 SCREEN_W = 1920
 SCREEN_H = 1080
@@ -13,32 +14,41 @@ BLUE = (0, 0, 255)
 FPS = 30
 
 pygame.init()
-pygame.display.set_caption('Pygame')
+pygame.display.set_caption('Introduction to Signals and Systems MiniProject')
 screen = pygame.display.set_mode((SCREEN_W, SCREEN_H))
 screen_rect = screen.get_rect()
 
 clock = pygame.time.Clock()
-img_path = r'./asset/images/fortest'
+
+
+cover = pygame.transform.scale(pygame.image.load(fr'{imagesPath}cover.jpg'), (SCREEN_W, SCREEN_H))
 
 # ---------------------------------------------
 
 
-def draw_text(text, size, x, y):
-    font = pygame.font.Font(None, size)
-    text_surface = font.render(text, True, WHITE)
+#--------------- Text & Intro Screen ---------------
+def draw_text(text, size, color, x, y, fontFile=None):
+    if fontFile == None:
+        font = pygame.font.SysFont(None, size)
+    else:
+        font = pygame.font.Font(fontFile, size)
+
+    text_surface = font.render(text, True, color)
     text_rect = text_surface.get_rect(midtop=(x, y))
     screen.blit(text_surface, text_rect)
 
 
 def intro_screen():
     screen.fill(BLUE)
-    cx = screen_rect.centerx
-    draw_text('Pygame', 64, cx, 50)
 
-    btn_exit_image = pygame.image.load(fr'{img_path}/btn-exit.png')
+    screen.blit(cover, cover.get_rect())
+    cx = screen_rect.centerx
+    draw_text('Introduction to Signals and Systems MiniProject', 64, WHITE, cx, 50,fr'{fontsPath}Hyperblox.ttf')
+
+    btn_exit_image = pygame.image.load(fr'{imagesPath}btn-exit.png')
     btn_exit_rect = btn_exit_image.get_rect(right=cx-30, top=int(SCREEN_H * 0.75))
 
-    btn_start_image = pygame.image.load(fr'{img_path}/btn-start.png')
+    btn_start_image = pygame.image.load(fr'{imagesPath}btn-start.png')
     btn_start_rect = btn_start_image.get_rect(left=cx+30, top=int(SCREEN_H * 0.75))
 
     screen.blit(btn_start_image, btn_start_rect)
@@ -77,7 +87,6 @@ while running:
             playing = False
 
     screen.fill(BLACK)
-    draw_text('Click mouse for game over', 36,
-              screen_rect.centerx, screen_rect.centery-20)
+    draw_text('Click mouse for game over', 36, WHITE,screen_rect.centerx, screen_rect.centery-20)
 
     pygame.display.flip()
