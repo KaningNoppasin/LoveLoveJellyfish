@@ -42,7 +42,7 @@ BEGIN
   adc_sclk <= sclk;
   adc_mosi <= mosi;
 
---  LEDS <= adc_data(11 downto 4); -- show 8-bit ADC value directly to LEDs
+  LEDS <= adc_data(11 downto 4); -- show 8-bit ADC value directly to LEDs
 
   PROCESS (adc_data)
     VARIABLE leds_on : INTEGER RANGE 0 TO 7;
