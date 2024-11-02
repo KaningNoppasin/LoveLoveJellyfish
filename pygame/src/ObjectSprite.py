@@ -23,7 +23,8 @@ class ObjectBottom(pygame.sprite.Sprite):
         # self.image = objectImage
         h = self.image.get_height()
         # start_left = SCREEN_W + random.randint(0, 500)
-        start_left = SCREEN_W + 1200
+        start_left = SCREEN_W + random.choice([random.randint(0, 200), random.randint(700, 900)])
+        # start_left = SCREEN_W + 700
         start_top = SCREEN_H - h
         self.rect = self.image.get_rect(topleft=(start_left, start_top))
         self.speed = 5
@@ -40,7 +41,8 @@ class ObjectTop(pygame.sprite.Sprite):
         self.image = random.choice(objects_top) if image == None else image
         h = self.image.get_height()
         # start_left = SCREEN_W + random.randint(0, 500)
-        start_left = SCREEN_W + 500
+        start_left = SCREEN_W + random.randint(400, 500)
+        # start_left = SCREEN_W + 100
         start_top = 0
         self.rect = self.image.get_rect(topleft=(start_left, start_top))
         self.speed = 5
