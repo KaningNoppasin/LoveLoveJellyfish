@@ -21,6 +21,7 @@ clock = pygame.time.Clock()
 
 #--------------- Images and Sounds ---------------
 cover = pygame.transform.scale(pygame.image.load(fr'{imagesPath}cover.jpg'), (SCREEN_W, SCREEN_H))
+bg = pygame.transform.scale(pygame.image.load(fr'{imagesPath}bg.png'), (SCREEN_W, SCREEN_H))
 
 # ---------------------------------------------
 #--------------- Jet Sprite ---------------
@@ -50,11 +51,13 @@ class Jet(pygame.sprite.Sprite):
 # cloud2 = pygame.image.load(fr'{imagesPath}cloud2.png')
 # cloud3 = pygame.image.load(fr'{imagesPath}cloud3.png')
 
-cloud1 = pygame.transform.scale(pygame.image.load(fr'{imagesPath}Obj1.png'), (SCREEN_W//3, SCREEN_H//3))
-cloud2 = pygame.transform.scale(pygame.image.load(fr'{imagesPath}Obj2.png'), (SCREEN_W//3, SCREEN_H//3))
-cloud3 = pygame.transform.scale(pygame.image.load(fr'{imagesPath}Obj3.png'), (SCREEN_W//3, SCREEN_H//3))
-cloud4 = pygame.transform.scale(pygame.image.load(fr'{imagesPath}Obj4.png'), (SCREEN_W//3, SCREEN_H//3))
-cloud5 = pygame.transform.scale(pygame.image.load(fr'{imagesPath}Obj5.png'), (SCREEN_W//3, SCREEN_H//3))
+cloud1 = pygame.transform.scale(pygame.image.load(fr'{imagesPath}Obj1.png'), (SCREEN_W//2.5, SCREEN_H//2.5))
+cloud2 = pygame.transform.scale(pygame.image.load(fr'{imagesPath}Obj2.png'), (SCREEN_W//2.5, SCREEN_H//2.5))
+cloud3 = pygame.transform.scale(pygame.image.load(fr'{imagesPath}Obj3.png'), (SCREEN_W//2.5, SCREEN_H//2.5))
+cloud4 = pygame.transform.scale(pygame.image.load(fr'{imagesPath}Obj4.png'), (SCREEN_W//2.5, SCREEN_H//2.5))
+# cloud5 = pygame.transform.scale(pygame.image.load(fr'{imagesPath}Obj5.png'), (SCREEN_W//2.5, SCREEN_H//2.5))
+cloud5 = pygame.transform.scale(pygame.image.load(fr'{imagesPath}draft.png'), (SCREEN_H//2.5, SCREEN_W//2.5))
+# cloud5 = pygame.image.load(fr'{imagesPath}draft.png')
 # clouds = [cloud1, cloud2, cloud3]
 clouds = [cloud1, cloud3, cloud4]
 
@@ -65,11 +68,12 @@ class CloudButton(pygame.sprite.Sprite):
         self.image = random.choice([cloud5,cloud2])
         # self.image = cloudImage
         h = self.image.get_height()
-        start_left = SCREEN_W + random.randint(0, 250)
+        # start_left = SCREEN_W + random.randint(0, 250)
+        start_left = SCREEN_W + 200
         # start_left = startLeft
         # start_top =  random.randint(h//2, (SCREEN_H - h))
-        start_top =  random.randint(int(SCREEN_H - (h * 1.2)), (SCREEN_H - h))
-        # start_top =  SCREEN_H - h
+        # start_top =  random.randint(int(SCREEN_H - (h * 1.2)), (SCREEN_H - h))
+        start_top =  SCREEN_H - h
         self.rect = self.image.get_rect(topleft=(start_left, start_top))
         self.speed = 5
 
@@ -84,11 +88,12 @@ class CloudTop(pygame.sprite.Sprite):
         self.image = random.choice(clouds)
         # self.image = cloudImage
         h = self.image.get_height()
-        start_left = SCREEN_W + random.randint(250, 500)
+        # start_left = SCREEN_W + random.randint(250, 500)
+        start_left = SCREEN_W + 100
         # start_left = startLeft
         # start_top =  random.randint(h//2, (SCREEN_H - h))
-        start_top =  random.randint(h//2, (SCREEN_H - h)//2)
-        # start_top = 0
+        # start_top =  random.randint(h//2, (SCREEN_H - h)//2)
+        start_top = 0
         self.rect = self.image.get_rect(topleft=(start_left, start_top))
         self.speed = 5
 
@@ -178,6 +183,7 @@ while running:
             group_cloud_button.add(CloudButton())
 
     screen.fill(BLUESKY)
+    screen.blit(bg, bg.get_rect())
 
     keys = pygame.key.get_pressed()
     group_jet.update(keys)
