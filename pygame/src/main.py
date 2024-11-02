@@ -27,34 +27,29 @@ bg = pygame.transform.scale(pygame.image.load(
 
 # ---------------------------------------------
 
-# --------------- Cloud Sprite ---------------
-# cloud1 = pygame.image.load(fr'{imagesPath}cloud1.png')
-# cloud2 = pygame.image.load(fr'{imagesPath}cloud2.png')
-# cloud3 = pygame.image.load(fr'{imagesPath}cloud3.png')
-
-
-cloud1 = pygame.transform.scale(pygame.image.load(
+# --------------- Object Sprite ---------------
+object1 = pygame.transform.scale(pygame.image.load(
     fr'{imagesPath}Obj1.png'), (SCREEN_W//2.5, SCREEN_H//2.5))
-cloud2 = pygame.transform.scale(pygame.image.load(
+object2 = pygame.transform.scale(pygame.image.load(
     fr'{imagesPath}Obj2.png'), (SCREEN_W//2.5, SCREEN_H//2.5))
-cloud3 = pygame.transform.scale(pygame.image.load(
+object3 = pygame.transform.scale(pygame.image.load(
     fr'{imagesPath}Obj3.png'), (SCREEN_W//2.5, SCREEN_H//2.5))
-cloud4 = pygame.transform.scale(pygame.image.load(
+object4 = pygame.transform.scale(pygame.image.load(
     fr'{imagesPath}Obj4.png'), (SCREEN_W//2.5, SCREEN_H//2.5))
-# cloud5 = pygame.transform.scale(pygame.image.load(fr'{imagesPath}Obj5.png'), (SCREEN_W//2.5, SCREEN_H//2.5))
-cloud5 = pygame.transform.scale(pygame.image.load(
+# object5 = pygame.transform.scale(pygame.image.load(fr'{imagesPath}Obj5.png'), (SCREEN_W//2.5, SCREEN_H//2.5))
+object5 = pygame.transform.scale(pygame.image.load(
     fr'{imagesPath}draft.png'), (SCREEN_H//2.5, SCREEN_W//2.5))
-# cloud5 = pygame.image.load(fr'{imagesPath}draft.png')
-# clouds = [cloud1, cloud2, cloud3]
-clouds = [cloud1, cloud3, cloud4]
+# object5 = pygame.image.load(fr'{imagesPath}draft.png')
+# objects = [object1, object2, object3]
+objects = [object1, object3, object4]
 
 
-class CloudButton(pygame.sprite.Sprite):
+class ObjectButton(pygame.sprite.Sprite):
     def __init__(self):
-        super(CloudButton, self).__init__()
-        # self.image = random.choice(clouds)
-        self.image = random.choice([cloud5, cloud2])
-        # self.image = cloudImage
+        super(ObjectButton, self).__init__()
+        # self.image = random.choice(objects)
+        self.image = random.choice([object5, object2])
+        # self.image = objectImage
         h = self.image.get_height()
         # start_left = SCREEN_W + random.randint(0, 500)
         start_left = SCREEN_W + 1200
@@ -71,11 +66,11 @@ class CloudButton(pygame.sprite.Sprite):
             self.kill()
 
 
-class CloudTop(pygame.sprite.Sprite):
+class ObjectTop(pygame.sprite.Sprite):
     def __init__(self):
-        super(CloudTop, self).__init__()
-        self.image = random.choice(clouds)
-        # self.image = cloudImage
+        super(ObjectTop, self).__init__()
+        self.image = random.choice(objects)
+        # self.image = objectImage
         h = self.image.get_height()
         # start_left = SCREEN_W + random.randint(0, 500)
         start_left = SCREEN_W + 500
@@ -190,16 +185,16 @@ group_jellyfish = pygame.sprite.Group()
 group_jellyfish.add(Jellyfish())
 
 
-group_cloud_top = pygame.sprite.Group()
-group_cloud_top.add(CloudTop())
+group_object_top = pygame.sprite.Group()
+group_object_top.add(ObjectTop())
 
-group_cloud_button = pygame.sprite.Group()
-group_cloud_button.add(CloudButton())
+group_object_button = pygame.sprite.Group()
+group_object_button.add(ObjectButton())
 
-ADD_CLOUD_TOP = pygame.USEREVENT + 1
-pygame.time.set_timer(ADD_CLOUD_TOP, 7000)
-ADD_CLOUD_BUTTON = pygame.USEREVENT + 2
-pygame.time.set_timer(ADD_CLOUD_BUTTON, 7000)
+ADD_object_TOP = pygame.USEREVENT + 1
+pygame.time.set_timer(ADD_object_TOP, 7000)
+ADD_object_BUTTON = pygame.USEREVENT + 2
+pygame.time.set_timer(ADD_object_BUTTON, 7000)
 # ---------------------------------------------
 playing = False
 running = True
@@ -215,25 +210,23 @@ while running:
             sys.exit()
         elif event.type == MOUSEBUTTONDOWN:  # type: ignore
             playing = False
-        elif event.type == ADD_CLOUD_TOP:
-            if len(group_cloud_top) < 5:
-                group_cloud_top.add(CloudTop())
-            # group_cloud_button.add(CloudButton())
-        elif event.type == ADD_CLOUD_BUTTON:
-            # group_cloud_top.add(CloudTop())
-            if len(group_cloud_button) < 5:
-                group_cloud_button.add(CloudButton())
+        elif event.type == ADD_object_TOP:
+            if len(group_object_top) < 5:
+                group_object_top.add(ObjectTop())
+        elif event.type == ADD_object_BUTTON:
+            if len(group_object_button) < 5:
+                group_object_button.add(ObjectButton())
 
     screen.fill(BLUESKY)
     screen.blit(bg, bg.get_rect())
 
     keys = pygame.key.get_pressed()
     group_jellyfish.update(keys)
-    group_cloud_top.update()
-    group_cloud_button.update()
+    group_object_top.update()
+    group_object_button.update()
 
-    group_cloud_top.draw(screen)
-    group_cloud_button.draw(screen)
+    group_object_top.draw(screen)
+    group_object_button.draw(screen)
     group_jellyfish.draw(screen)
     draw_text('Click mouse for game over', 36, BLACK,
               screen_rect.centerx, screen_rect.centery-20)
