@@ -21,10 +21,11 @@ def draw_text(text, size, color, x, y, fontFile=None):
 def intro_screen():
     screen.fill(BLUE)
 
-    screen.blit(cover, cover.get_rect())
+    # screen.blit(cover, cover.get_rect())
+    screen.blit(bg, bg.get_rect())
     cx = screen_rect.centerx
-    draw_text('Introduction to Signals and Systems MiniProject',
-              64, WHITE, cx, 50, fr'{fontsPath}Hyperblox.ttf')
+    draw_text('Love Love Jellyfish',
+              128, BLUESKY, cx, 50, fr'{fontsPath}SmothyBubble.com.otf')
 
     btn_exit_image = pygame.image.load(fr'{imagesPath}btn-exit.png')
     btn_exit_rect = btn_exit_image.get_rect(

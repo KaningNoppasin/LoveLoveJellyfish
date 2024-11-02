@@ -4,34 +4,26 @@ import random
 from init import *
 
 # --------------- Object Sprite ---------------
-object1 = pygame.transform.scale(pygame.image.load(
-    fr'{imagesPath}Obj1.png'), (SCREEN_W//2.5, SCREEN_H//2.5))
-object2 = pygame.transform.scale(pygame.image.load(
-    fr'{imagesPath}Obj2.png'), (SCREEN_W//2.5, SCREEN_H//2.5))
-object3 = pygame.transform.scale(pygame.image.load(
-    fr'{imagesPath}Obj3.png'), (SCREEN_W//2.5, SCREEN_H//2.5))
-object4 = pygame.transform.scale(pygame.image.load(
-    fr'{imagesPath}Obj4.png'), (SCREEN_W//2.5, SCREEN_H//2.5))
-# object5 = pygame.transform.scale(pygame.image.load(fr'{imagesPath}Obj5.png'), (SCREEN_W//2.5, SCREEN_H//2.5))
-object5 = pygame.transform.scale(pygame.image.load(
-    fr'{imagesPath}draft.png'), (SCREEN_H//2.5, SCREEN_W//2.5))
-# object5 = pygame.image.load(fr'{imagesPath}draft.png')
-# objects = [object1, object2, object3]
-objects = [object1, object3, object4]
+object_bottom1 = pygame.transform.scale(pygame.image.load(fr'{imagesPath}Object/ObjectBottom1.png'), (SCREEN_H//2.5, SCREEN_W//2.5))
+object_bottom2 = pygame.transform.scale(pygame.image.load(fr'{imagesPath}Object/ObjectBottom2.png'), (SCREEN_H//2.5, SCREEN_W//2.5))
+object_bottom3 = pygame.transform.scale(pygame.image.load(fr'{imagesPath}Object/ObjectBottom3.png'), (SCREEN_H//2.5, SCREEN_W//2.5))
+
+object_top1 = pygame.transform.scale(pygame.image.load(fr'{imagesPath}Object/ObjectTop1.png'), (SCREEN_H//2.5, SCREEN_W//2.5))
+object_top2 = pygame.transform.scale(pygame.image.load(fr'{imagesPath}Object/ObjectTop2.png'), (SCREEN_H//2.5, SCREEN_W//2.5))
+object_top3 = pygame.transform.scale(pygame.image.load(fr'{imagesPath}Object/ObjectTop3.png'), (SCREEN_H//2.5, SCREEN_W//2.5))
+
+objects_bottom = [object_bottom1, object_bottom2, object_bottom3]
+objects_top = [object_top1, object_top2, object_top3]
 
 
-class ObjectButton(pygame.sprite.Sprite):
-    def __init__(self):
-        super(ObjectButton, self).__init__()
-        # self.image = random.choice(objects)
-        self.image = random.choice([object5, object2])
+class ObjectBottom(pygame.sprite.Sprite):
+    def __init__(self, image = None):
+        super(ObjectBottom, self).__init__()
+        self.image = random.choice(objects_bottom) if image == None else image
         # self.image = objectImage
         h = self.image.get_height()
         # start_left = SCREEN_W + random.randint(0, 500)
         start_left = SCREEN_W + 1200
-        # start_left = startLeft
-        # start_top =  random.randint(h//2, (SCREEN_H - h))
-        # start_top =  random.randint(int(SCREEN_H - (h * 1.2)), (SCREEN_H - h))
         start_top = SCREEN_H - h
         self.rect = self.image.get_rect(topleft=(start_left, start_top))
         self.speed = 5
@@ -43,16 +35,12 @@ class ObjectButton(pygame.sprite.Sprite):
 
 
 class ObjectTop(pygame.sprite.Sprite):
-    def __init__(self):
+    def __init__(self, image = None):
         super(ObjectTop, self).__init__()
-        self.image = random.choice(objects)
-        # self.image = objectImage
+        self.image = random.choice(objects_top) if image == None else image
         h = self.image.get_height()
         # start_left = SCREEN_W + random.randint(0, 500)
         start_left = SCREEN_W + 500
-        # start_left = startLeft
-        # start_top =  random.randint(h//2, (SCREEN_H - h))
-        # start_top =  random.randint(h//2, (SCREEN_H - h)//2)
         start_top = 0
         self.rect = self.image.get_rect(topleft=(start_left, start_top))
         self.speed = 5

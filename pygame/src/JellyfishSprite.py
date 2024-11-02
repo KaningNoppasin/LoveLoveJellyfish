@@ -48,3 +48,7 @@ class Jellyfish(pygame.sprite.Sprite):
             self.rect.move_ip(0, self.distance)
             if self.rect.bottom >= SCREEN_H:
                 self.rect.bottom = SCREEN_H
+        else:
+            self.rect.move_ip(0, self.distance)
+            if self.rect.bottom >= SCREEN_H:
+                self.rect.bottom = SCREEN_H
