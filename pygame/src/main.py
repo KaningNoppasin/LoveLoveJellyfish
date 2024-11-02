@@ -10,7 +10,7 @@ BLACK = (0, 0, 0)
 WHITE = (255, 255, 255)
 BLUESKY = (200, 220, 255)
 BLUE = (0, 0, 255)
-FPS = 30
+FPS = 60
 
 pygame.init()
 pygame.display.set_caption('Introduction to Signals and Systems MiniProject')
@@ -19,22 +19,26 @@ screen_rect = screen.get_rect()
 
 clock = pygame.time.Clock()
 
-#--------------- Images and Sounds ---------------
-cover = pygame.transform.scale(pygame.image.load(fr'{imagesPath}cover.jpg'), (SCREEN_W, SCREEN_H))
-bg = pygame.transform.scale(pygame.image.load(fr'{imagesPath}bg.png'), (SCREEN_W, SCREEN_H))
+# --------------- Images and Sounds ---------------
+cover = pygame.transform.scale(pygame.image.load(
+    fr'{imagesPath}cover.jpg'), (SCREEN_W, SCREEN_H))
+bg = pygame.transform.scale(pygame.image.load(
+    fr'{imagesPath}bg.png'), (SCREEN_W, SCREEN_H))
 
 # ---------------------------------------------
-#--------------- Jet Sprite ---------------
+# --------------- Jet Sprite ---------------
 jet_img = pygame.image.load(fr'{imagesPath}fighter-jet.png')
+
 
 class Jet(pygame.sprite.Sprite):
     def __init__(self):
         super(Jet, self).__init__()
         self.image = jet_img
         # self.rect = self.image.get_rect(center=screen_rect.center)
-        self.rect = self.image.get_rect(center=(int(SCREEN_W * 0.07),int(SCREEN_H * 0.9)))
+        self.rect = self.image.get_rect(
+            center=(int(SCREEN_W * 0.07), int(SCREEN_H * 0.9)))
         self.distance = 10
-        
+
     def update(self, keys):
         if keys[K_UP]:  # type: ignore
             self.rect.move_ip(0, -self.distance)
@@ -46,34 +50,41 @@ class Jet(pygame.sprite.Sprite):
             if self.rect.bottom >= SCREEN_H:
                 self.rect.bottom = SCREEN_H
 
-#--------------- Cloud Sprite ---------------
+# --------------- Cloud Sprite ---------------
 # cloud1 = pygame.image.load(fr'{imagesPath}cloud1.png')
 # cloud2 = pygame.image.load(fr'{imagesPath}cloud2.png')
 # cloud3 = pygame.image.load(fr'{imagesPath}cloud3.png')
 
-cloud1 = pygame.transform.scale(pygame.image.load(fr'{imagesPath}Obj1.png'), (SCREEN_W//2.5, SCREEN_H//2.5))
-cloud2 = pygame.transform.scale(pygame.image.load(fr'{imagesPath}Obj2.png'), (SCREEN_W//2.5, SCREEN_H//2.5))
-cloud3 = pygame.transform.scale(pygame.image.load(fr'{imagesPath}Obj3.png'), (SCREEN_W//2.5, SCREEN_H//2.5))
-cloud4 = pygame.transform.scale(pygame.image.load(fr'{imagesPath}Obj4.png'), (SCREEN_W//2.5, SCREEN_H//2.5))
+
+cloud1 = pygame.transform.scale(pygame.image.load(
+    fr'{imagesPath}Obj1.png'), (SCREEN_W//2.5, SCREEN_H//2.5))
+cloud2 = pygame.transform.scale(pygame.image.load(
+    fr'{imagesPath}Obj2.png'), (SCREEN_W//2.5, SCREEN_H//2.5))
+cloud3 = pygame.transform.scale(pygame.image.load(
+    fr'{imagesPath}Obj3.png'), (SCREEN_W//2.5, SCREEN_H//2.5))
+cloud4 = pygame.transform.scale(pygame.image.load(
+    fr'{imagesPath}Obj4.png'), (SCREEN_W//2.5, SCREEN_H//2.5))
 # cloud5 = pygame.transform.scale(pygame.image.load(fr'{imagesPath}Obj5.png'), (SCREEN_W//2.5, SCREEN_H//2.5))
-cloud5 = pygame.transform.scale(pygame.image.load(fr'{imagesPath}draft.png'), (SCREEN_H//2.5, SCREEN_W//2.5))
+cloud5 = pygame.transform.scale(pygame.image.load(
+    fr'{imagesPath}draft.png'), (SCREEN_H//2.5, SCREEN_W//2.5))
 # cloud5 = pygame.image.load(fr'{imagesPath}draft.png')
 # clouds = [cloud1, cloud2, cloud3]
 clouds = [cloud1, cloud3, cloud4]
+
 
 class CloudButton(pygame.sprite.Sprite):
     def __init__(self):
         super(CloudButton, self).__init__()
         # self.image = random.choice(clouds)
-        self.image = random.choice([cloud5,cloud2])
+        self.image = random.choice([cloud5, cloud2])
         # self.image = cloudImage
         h = self.image.get_height()
-        # start_left = SCREEN_W + random.randint(0, 250)
-        start_left = SCREEN_W + 200
+        # start_left = SCREEN_W + random.randint(0, 500)
+        start_left = SCREEN_W + 1200
         # start_left = startLeft
         # start_top =  random.randint(h//2, (SCREEN_H - h))
         # start_top =  random.randint(int(SCREEN_H - (h * 1.2)), (SCREEN_H - h))
-        start_top =  SCREEN_H - h
+        start_top = SCREEN_H - h
         self.rect = self.image.get_rect(topleft=(start_left, start_top))
         self.speed = 5
 
@@ -82,14 +93,15 @@ class CloudButton(pygame.sprite.Sprite):
         if self.rect.right < 0:
             self.kill()
 
+
 class CloudTop(pygame.sprite.Sprite):
     def __init__(self):
         super(CloudTop, self).__init__()
         self.image = random.choice(clouds)
         # self.image = cloudImage
         h = self.image.get_height()
-        # start_left = SCREEN_W + random.randint(250, 500)
-        start_left = SCREEN_W + 100
+        # start_left = SCREEN_W + random.randint(0, 500)
+        start_left = SCREEN_W + 500
         # start_left = startLeft
         # start_top =  random.randint(h//2, (SCREEN_H - h))
         # start_top =  random.randint(h//2, (SCREEN_H - h)//2)
@@ -102,7 +114,80 @@ class CloudTop(pygame.sprite.Sprite):
         if self.rect.right < 0:
             self.kill()
 
-#--------------- Text & Intro Screen ---------------
+
+# --------------- Pterodactyl Sprite ---------------
+# pte_img = pygame.image.load(fr'{imagesPath}Jlfpink.png')
+pte_img = pygame.transform.scale(pygame.image.load(
+    fr'{imagesPath}Jlfpink.png'), (SCREEN_W//3.5, SCREEN_H//3.5))
+pte_num_subimgs = 3
+pte_subimg_w = pte_img.get_width() // pte_num_subimgs
+pte_subimg_h = pte_img.get_height()
+pte_subimgs = []
+
+for i in range(pte_num_subimgs):
+    x = i * pte_subimg_w
+    f = pte_img.subsurface(x, 0, pte_subimg_w, pte_subimg_h)
+    pte_subimgs.append(f)
+
+pte_repeat = FPS // pte_num_subimgs  # แสดงภาพย่อยซ้ำๆ จำนวนกี่เฟรม
+
+# กรณีที่นำจำนวนภาพย่อยไปหารอัตราเฟรมแล้วได้เลขไม่ลงตัว
+# เช่น ถ้าอัตราเฟรมเป็น 30 แล้วมี 4 ภาพย่อย
+# ดังนั้น 30 // 4 => 7 (แต่เหลือเศษ 2)
+# แสดงว่า เมื่อมาถึงเฟรมที่ 28 (4 * 7)  ก็จะครบทุกภาพย่อย
+# แล้วไม่มีภาพให้แสดงต่อไปอีก ดังนั้น เราจึงสร้างขอบเขตไว้ตรวจสอบว่า
+# เมื่อมาถึงลำดับเฟรมนี้แล้ว จะทำอย่างไรต่อไป
+# โดยลำดับเฟรมสุดท้ายคือ ผลคูณของจำนวนภาพย่อย กับ จำนวนที่แสดงซ้ำ
+# แล้ว -1 เพราะลำดับภาพเริ่มจาก 0
+pte_last_frame = (pte_num_subimgs * pte_repeat) - 1
+
+
+class Pterodactyl(pygame.sprite.Sprite):
+    def __init__(self):
+        super(Pterodactyl, self).__init__()
+        self.image = pte_subimgs[0]  # ให้พร็อปเพอร์ตี้ image เป็นภาพแรกไว้ก่อน
+
+        # กำหนดพร็อปเพอร์ตี้ rect พร้อมระบุ ตำแหน่งเริ่มแรกและขนาด
+        # (left, top, w, h) ไม่ต้องระบุ Label
+        # self.rect = pygame.Rect(
+        #     -pte_subimg_w, 0, pte_subimg_w, pte_subimg_h
+        # )
+        self.rect = self.image.get_rect(
+            center=(int(SCREEN_W * 0.07), int(SCREEN_H * 0.9)))
+
+        self.index = 0  # ลำดับเฟรม (หน้าจอ)
+        self.speedx = 5
+        self.distance = 10
+
+    def update(self, keys):
+        # ถ้าแสดงภาพย่อยมาจนถึงลำดับเฟรม (หน้าจอ) สุดท้ายที่ตั้งเอาไว้
+        # ให้กลับไปเริ่มแสดงที่ภาพแรกใหม่
+        if self.index >= pte_last_frame:
+            self.index = 0
+
+        # ลำดับภาพย่อยที่จะนำมาแสดงในลำดับเฟรมนั้น
+        i = self.index // pte_repeat
+
+        # เปลี่ยนค่าของพร็อปเพอร์ตี้ image ไปตามลำดับภาพย่อย
+        self.image = pte_subimgs[i]
+        self.index += 1
+
+        # self.rect.move_ip(self.speedx, 0)
+        # if self.rect.left > SCREEN_W:  # ถ้าหลุดจากขอบหน้าจอด้านขวา
+        #     self.rect.left = -self.rect.width  # ให้กลับไปเริ่มที่ขอบด้านซ้าย
+        if keys[K_UP]:  # type: ignore
+            self.rect.move_ip(0, -self.distance)
+            if self.rect.top <= 0:
+                self.rect.top = 0
+
+        elif keys[K_DOWN]:  # type: ignore
+            self.rect.move_ip(0, self.distance)
+            if self.rect.bottom >= SCREEN_H:
+                self.rect.bottom = SCREEN_H
+
+# --------------- Text & Intro Screen ---------------
+
+
 def draw_text(text, size, color, x, y, fontFile=None):
     if fontFile == None:
         font = pygame.font.SysFont(None, size)
@@ -119,13 +204,16 @@ def intro_screen():
 
     screen.blit(cover, cover.get_rect())
     cx = screen_rect.centerx
-    draw_text('Introduction to Signals and Systems MiniProject', 64, WHITE, cx, 50,fr'{fontsPath}Hyperblox.ttf')
+    draw_text('Introduction to Signals and Systems MiniProject',
+              64, WHITE, cx, 50, fr'{fontsPath}Hyperblox.ttf')
 
     btn_exit_image = pygame.image.load(fr'{imagesPath}btn-exit.png')
-    btn_exit_rect = btn_exit_image.get_rect(right=cx-30, top=int(SCREEN_H * 0.75))
+    btn_exit_rect = btn_exit_image.get_rect(
+        right=cx-30, top=int(SCREEN_H * 0.75))
 
     btn_start_image = pygame.image.load(fr'{imagesPath}btn-start.png')
-    btn_start_rect = btn_start_image.get_rect(left=cx+30, top=int(SCREEN_H * 0.75))
+    btn_start_rect = btn_start_image.get_rect(
+        left=cx+30, top=int(SCREEN_H * 0.75))
 
     screen.blit(btn_start_image, btn_start_rect)
     screen.blit(btn_exit_image, btn_exit_rect)
@@ -138,7 +226,7 @@ def intro_screen():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
-            elif event.type == MOUSEBUTTONDOWN: # type: ignore
+            elif event.type == MOUSEBUTTONDOWN:  # type: ignore
                 if btn_start_rect.collidepoint(pygame.mouse.get_pos()):
                     waiting = False
                 elif btn_exit_rect.collidepoint(pygame.mouse.get_pos()):
@@ -146,6 +234,8 @@ def intro_screen():
                     sys.exit()
 
 
+group_ptero = pygame.sprite.Group()
+group_ptero.add(Pterodactyl())
 
 group_jet = pygame.sprite.Group()
 group_jet.add(Jet())
@@ -157,9 +247,9 @@ group_cloud_button = pygame.sprite.Group()
 group_cloud_button.add(CloudButton())
 
 ADD_CLOUD_TOP = pygame.USEREVENT + 1
-pygame.time.set_timer(ADD_CLOUD_TOP, 2500)
+pygame.time.set_timer(ADD_CLOUD_TOP, 7000)
 ADD_CLOUD_BUTTON = pygame.USEREVENT + 2
-pygame.time.set_timer(ADD_CLOUD_BUTTON, 1500)
+pygame.time.set_timer(ADD_CLOUD_BUTTON, 7000)
 # ---------------------------------------------
 playing = False
 running = True
@@ -169,30 +259,35 @@ while running:
         playing = True
 
     for event in pygame.event.get():
-        if event.type == QUIT: # type: ignore
+        if event.type == QUIT:  # type: ignore
             running = False
             pygame.quit()
             sys.exit()
-        elif event.type == MOUSEBUTTONDOWN: # type: ignore
+        elif event.type == MOUSEBUTTONDOWN:  # type: ignore
             playing = False
         elif event.type == ADD_CLOUD_TOP:
-            group_cloud_top.add(CloudTop())
+            if len(group_cloud_top) < 5:
+                group_cloud_top.add(CloudTop())
             # group_cloud_button.add(CloudButton())
         elif event.type == ADD_CLOUD_BUTTON:
             # group_cloud_top.add(CloudTop())
-            group_cloud_button.add(CloudButton())
+            if len(group_cloud_button) < 5:
+                group_cloud_button.add(CloudButton())
 
     screen.fill(BLUESKY)
     screen.blit(bg, bg.get_rect())
 
     keys = pygame.key.get_pressed()
+    group_ptero.update(keys)
     group_jet.update(keys)
     group_cloud_top.update()
     group_cloud_button.update()
 
-    group_jet.draw(screen)
+    # group_jet.draw(screen) #*for test
     group_cloud_top.draw(screen)
     group_cloud_button.draw(screen)
-    draw_text('Click mouse for game over', 36, WHITE,screen_rect.centerx, screen_rect.centery-20)
+    group_ptero.draw(screen)
+    draw_text('Click mouse for game over', 36, WHITE,
+              screen_rect.centerx, screen_rect.centery-20)
 
     pygame.display.flip()
