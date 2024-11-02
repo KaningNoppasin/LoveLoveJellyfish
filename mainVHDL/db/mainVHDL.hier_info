@@ -1,4 +1,21 @@
 |mainVHDL
+CLK => adc_controller:ADC_Controller.CLK
+NRST => adc_controller:ADC_Controller.NRST
+ADC_CSN <= adc_controller:ADC_Controller.ADC_CSN
+ADC_SCLK <= adc_controller:ADC_Controller.ADC_SCLK
+ADC_MOSI <= adc_controller:ADC_Controller.ADC_MOSI
+ADC_MISO => adc_controller:ADC_Controller.ADC_MISO
+LEDS[0] <= adc_controller:ADC_Controller.LEDS[0]
+LEDS[1] <= adc_controller:ADC_Controller.LEDS[1]
+LEDS[2] <= adc_controller:ADC_Controller.LEDS[2]
+LEDS[3] <= adc_controller:ADC_Controller.LEDS[3]
+LEDS[4] <= adc_controller:ADC_Controller.LEDS[4]
+LEDS[5] <= adc_controller:ADC_Controller.LEDS[5]
+LEDS[6] <= adc_controller:ADC_Controller.LEDS[6]
+LEDS[7] <= adc_controller:ADC_Controller.LEDS[7]
+
+
+|mainVHDL|ADC_Controller:ADC_Controller
 CLK => shift_reg[0].CLK
 CLK => shift_reg[1].CLK
 CLK => shift_reg[2].CLK
@@ -135,17 +152,17 @@ NRST => shift_reg[4].ENA
 NRST => shift_reg[3].ENA
 NRST => shift_reg[2].ENA
 NRST => shift_reg[1].ENA
-ADC_CSN << cs_n.DB_MAX_OUTPUT_PORT_TYPE
-ADC_SCLK << sclk.DB_MAX_OUTPUT_PORT_TYPE
-ADC_MOSI << mosi.DB_MAX_OUTPUT_PORT_TYPE
+ADC_CSN <= cs_n.DB_MAX_OUTPUT_PORT_TYPE
+ADC_SCLK <= sclk.DB_MAX_OUTPUT_PORT_TYPE
+ADC_MOSI <= mosi.DB_MAX_OUTPUT_PORT_TYPE
 ADC_MISO => shift_reg.DATAB
-LEDS[0] << WideOr5.DB_MAX_OUTPUT_PORT_TYPE
-LEDS[1] << WideOr4.DB_MAX_OUTPUT_PORT_TYPE
-LEDS[2] << WideOr3.DB_MAX_OUTPUT_PORT_TYPE
-LEDS[3] << WideOr2.DB_MAX_OUTPUT_PORT_TYPE
-LEDS[4] << WideOr1.DB_MAX_OUTPUT_PORT_TYPE
-LEDS[5] << WideOr0.DB_MAX_OUTPUT_PORT_TYPE
-LEDS[6] << LEDS.DB_MAX_OUTPUT_PORT_TYPE
-LEDS[7] << Decoder0.DB_MAX_OUTPUT_PORT_TYPE
+LEDS[0] <= WideOr5.DB_MAX_OUTPUT_PORT_TYPE
+LEDS[1] <= WideOr4.DB_MAX_OUTPUT_PORT_TYPE
+LEDS[2] <= WideOr3.DB_MAX_OUTPUT_PORT_TYPE
+LEDS[3] <= WideOr2.DB_MAX_OUTPUT_PORT_TYPE
+LEDS[4] <= WideOr1.DB_MAX_OUTPUT_PORT_TYPE
+LEDS[5] <= WideOr0.DB_MAX_OUTPUT_PORT_TYPE
+LEDS[6] <= LEDS.DB_MAX_OUTPUT_PORT_TYPE
+LEDS[7] <= Decoder0.DB_MAX_OUTPUT_PORT_TYPE
 
 

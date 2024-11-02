@@ -1,5 +1,5 @@
 Fitter report for mainVHDL
-Sat Nov 02 14:14:22 2024
+Sat Nov 02 14:47:14 2024
 Quartus Prime Version 20.1.1 Build 720 11/11/2020 SJ Lite Edition
 
 
@@ -66,7 +66,7 @@ https://fpgasoftware.intel.com/eula.
 +----------------------------------------------------------------------------------+
 ; Fitter Summary                                                                   ;
 +------------------------------------+---------------------------------------------+
-; Fitter Status                      ; Successful - Sat Nov 02 14:14:22 2024       ;
+; Fitter Status                      ; Successful - Sat Nov 02 14:47:14 2024       ;
 ; Quartus Prime Version              ; 20.1.1 Build 720 11/11/2020 SJ Lite Edition ;
 ; Revision Name                      ; mainVHDL                                    ;
 ; Top-level Entity Name              ; mainVHDL                                    ;
@@ -158,7 +158,8 @@ https://fpgasoftware.intel.com/eula.
 ;                            ;             ;
 ; Usage by Processor         ; % Time Used ;
 ;     Processor 1            ; 100.0%      ;
-;     Processors 2-4         ;   0.4%      ;
+;     Processor 2            ;   0.4%      ;
+;     Processors 3-4         ;   0.4%      ;
 +----------------------------+-------------+
 
 
@@ -682,13 +683,14 @@ Note: Pin directions (input, output or bidir) are based on device operating in u
 +----------+------------------------+
 
 
-+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; Fitter Resource Utilization by Entity                                                                                                                                                                                                                                         ;
-+----------------------------+-------------+---------------------------+---------------+-------------+------+--------------+---------+-----------+------+--------------+--------------+-------------------+------------------+---------------------+-------------+--------------+
-; Compilation Hierarchy Node ; Logic Cells ; Dedicated Logic Registers ; I/O Registers ; Memory Bits ; M9Ks ; DSP Elements ; DSP 9x9 ; DSP 18x18 ; Pins ; Virtual Pins ; LUT-Only LCs ; Register-Only LCs ; LUT/Register LCs ; Full Hierarchy Name ; Entity Name ; Library Name ;
-+----------------------------+-------------+---------------------------+---------------+-------------+------+--------------+---------+-----------+------+--------------+--------------+-------------------+------------------+---------------------+-------------+--------------+
-; |mainVHDL                  ; 121 (121)   ; 70 (70)                   ; 0 (0)         ; 0           ; 0    ; 0            ; 0       ; 0         ; 14   ; 0            ; 51 (51)      ; 3 (3)             ; 67 (67)          ; |mainVHDL           ; mainVHDL    ; work         ;
-+----------------------------+-------------+---------------------------+---------------+-------------+------+--------------+---------+-----------+------+--------------+--------------+-------------------+------------------+---------------------+-------------+--------------+
++--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Fitter Resource Utilization by Entity                                                                                                                                                                                                                                                                        ;
++------------------------------------+-------------+---------------------------+---------------+-------------+------+--------------+---------+-----------+------+--------------+--------------+-------------------+------------------+-----------------------------------------+----------------+--------------+
+; Compilation Hierarchy Node         ; Logic Cells ; Dedicated Logic Registers ; I/O Registers ; Memory Bits ; M9Ks ; DSP Elements ; DSP 9x9 ; DSP 18x18 ; Pins ; Virtual Pins ; LUT-Only LCs ; Register-Only LCs ; LUT/Register LCs ; Full Hierarchy Name                     ; Entity Name    ; Library Name ;
++------------------------------------+-------------+---------------------------+---------------+-------------+------+--------------+---------+-----------+------+--------------+--------------+-------------------+------------------+-----------------------------------------+----------------+--------------+
+; |mainVHDL                          ; 121 (1)     ; 70 (0)                    ; 0 (0)         ; 0           ; 0    ; 0            ; 0       ; 0         ; 14   ; 0            ; 51 (1)       ; 3 (0)             ; 67 (0)           ; |mainVHDL                               ; mainVHDL       ; work         ;
+;    |ADC_Controller:ADC_Controller| ; 120 (120)   ; 70 (70)                   ; 0 (0)         ; 0           ; 0    ; 0            ; 0       ; 0         ; 0    ; 0            ; 50 (50)      ; 3 (3)             ; 67 (67)          ; |mainVHDL|ADC_Controller:ADC_Controller ; ADC_Controller ; work         ;
++------------------------------------+-------------+---------------------------+---------------+-------------+------+--------------+---------+-----------+------+--------------+--------------+-------------------+------------------+-----------------------------------------+----------------+--------------+
 Note: For table entries with two numbers listed, the numbers in parentheses indicate the number of resources of the given type used by the specific entity alone. The numbers listed outside of parentheses indicate the total resources of the given type used by the specific entity and all of its sub-entities in the hierarchy.
 
 
@@ -714,99 +716,99 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 +----------+----------+---------------+---------------+-----------------------+-----+------+
 
 
-+-------------------------------------------------------+
-; Pad To Core Delay Chain Fanout                        ;
-+-------------------------+-------------------+---------+
-; Source Pin / Fanout     ; Pad To Core Index ; Setting ;
-+-------------------------+-------------------+---------+
-; CLK                     ;                   ;         ;
-; NRST                    ;                   ;         ;
-;      - bit_index[0]     ; 0                 ; 6       ;
-;      - adc_data[9]      ; 0                 ; 6       ;
-;      - adc_data[10]     ; 0                 ; 6       ;
-;      - adc_data[11]     ; 0                 ; 6       ;
-;      - sclk             ; 0                 ; 6       ;
-;      - mosi             ; 0                 ; 6       ;
-;      - shift_en         ; 0                 ; 6       ;
-;      - state.ST_IDLE    ; 0                 ; 6       ;
-;      - state.ST_SCK_H   ; 0                 ; 6       ;
-;      - state.ST_SCK_L   ; 0                 ; 6       ;
-;      - state.ST_WAIT    ; 0                 ; 6       ;
-;      - wait_cnt[0]      ; 0                 ; 6       ;
-;      - wait_cnt[1]      ; 0                 ; 6       ;
-;      - wait_cnt[2]      ; 0                 ; 6       ;
-;      - wait_cnt[3]      ; 0                 ; 6       ;
-;      - wait_cnt[4]      ; 0                 ; 6       ;
-;      - wait_cnt[5]      ; 0                 ; 6       ;
-;      - wait_cnt[6]      ; 0                 ; 6       ;
-;      - wait_cnt[7]      ; 0                 ; 6       ;
-;      - wait_cnt[8]      ; 0                 ; 6       ;
-;      - wait_cnt[9]      ; 0                 ; 6       ;
-;      - wait_cnt[10]     ; 0                 ; 6       ;
-;      - wait_cnt[11]     ; 0                 ; 6       ;
-;      - wait_cnt[12]     ; 0                 ; 6       ;
-;      - wait_cnt[13]     ; 0                 ; 6       ;
-;      - wait_cnt[14]     ; 0                 ; 6       ;
-;      - wait_cnt[15]     ; 0                 ; 6       ;
-;      - wait_cnt[16]     ; 0                 ; 6       ;
-;      - wait_cnt[17]     ; 0                 ; 6       ;
-;      - wait_cnt[18]     ; 0                 ; 6       ;
-;      - wait_cnt[19]     ; 0                 ; 6       ;
-;      - wait_cnt[20]     ; 0                 ; 6       ;
-;      - wait_cnt[21]     ; 0                 ; 6       ;
-;      - wait_cnt[22]     ; 0                 ; 6       ;
-;      - wait_cnt[23]     ; 0                 ; 6       ;
-;      - wait_cnt[24]     ; 0                 ; 6       ;
-;      - wait_cnt[25]     ; 0                 ; 6       ;
-;      - wait_cnt[26]     ; 0                 ; 6       ;
-;      - wait_cnt[27]     ; 0                 ; 6       ;
-;      - wait_cnt[28]     ; 0                 ; 6       ;
-;      - wait_cnt[29]     ; 0                 ; 6       ;
-;      - wait_cnt[30]     ; 0                 ; 6       ;
-;      - wait_cnt[31]     ; 0                 ; 6       ;
-;      - bit_index[3]     ; 0                 ; 6       ;
-;      - bit_index[2]     ; 0                 ; 6       ;
-;      - bit_index[1]     ; 0                 ; 6       ;
-;      - shift_reg[15]    ; 0                 ; 6       ;
-;      - shift_reg[10]    ; 0                 ; 6       ;
-;      - shift_reg[9]     ; 0                 ; 6       ;
-;      - shift_reg[14]    ; 0                 ; 6       ;
-;      - shift_reg[8]     ; 0                 ; 6       ;
-;      - shift_reg[13]    ; 0                 ; 6       ;
-;      - shift_reg[7]     ; 0                 ; 6       ;
-;      - shift_reg[12]    ; 0                 ; 6       ;
-;      - shift_reg[6]     ; 0                 ; 6       ;
-;      - shift_reg[5]     ; 0                 ; 6       ;
-;      - shift_reg[4]     ; 0                 ; 6       ;
-;      - shift_reg[3]     ; 0                 ; 6       ;
-;      - shift_reg[2]     ; 0                 ; 6       ;
-;      - shift_reg[1]     ; 0                 ; 6       ;
-;      - shift_reg[0]     ; 0                 ; 6       ;
-;      - cs_n             ; 0                 ; 6       ;
-;      - state.ST_START   ; 0                 ; 6       ;
-;      - count[4]         ; 0                 ; 6       ;
-;      - count[3]         ; 0                 ; 6       ;
-;      - count[2]         ; 0                 ; 6       ;
-;      - count[1]         ; 0                 ; 6       ;
-;      - count[0]         ; 0                 ; 6       ;
-;      - channel[0]       ; 0                 ; 6       ;
-;      - shift_reg[11]~16 ; 0                 ; 6       ;
-; ADC_MISO                ;                   ;         ;
-+-------------------------+-------------------+---------+
++-------------------------------------------------------------------------------------+
+; Pad To Core Delay Chain Fanout                                                      ;
++-------------------------------------------------------+-------------------+---------+
+; Source Pin / Fanout                                   ; Pad To Core Index ; Setting ;
++-------------------------------------------------------+-------------------+---------+
+; CLK                                                   ;                   ;         ;
+; NRST                                                  ;                   ;         ;
+;      - ADC_Controller:ADC_Controller|bit_index[0]     ; 0                 ; 6       ;
+;      - ADC_Controller:ADC_Controller|adc_data[9]      ; 0                 ; 6       ;
+;      - ADC_Controller:ADC_Controller|adc_data[10]     ; 0                 ; 6       ;
+;      - ADC_Controller:ADC_Controller|adc_data[11]     ; 0                 ; 6       ;
+;      - ADC_Controller:ADC_Controller|sclk             ; 0                 ; 6       ;
+;      - ADC_Controller:ADC_Controller|mosi             ; 0                 ; 6       ;
+;      - ADC_Controller:ADC_Controller|shift_en         ; 0                 ; 6       ;
+;      - ADC_Controller:ADC_Controller|state.ST_IDLE    ; 0                 ; 6       ;
+;      - ADC_Controller:ADC_Controller|state.ST_SCK_H   ; 0                 ; 6       ;
+;      - ADC_Controller:ADC_Controller|state.ST_SCK_L   ; 0                 ; 6       ;
+;      - ADC_Controller:ADC_Controller|state.ST_WAIT    ; 0                 ; 6       ;
+;      - ADC_Controller:ADC_Controller|wait_cnt[0]      ; 0                 ; 6       ;
+;      - ADC_Controller:ADC_Controller|wait_cnt[1]      ; 0                 ; 6       ;
+;      - ADC_Controller:ADC_Controller|wait_cnt[2]      ; 0                 ; 6       ;
+;      - ADC_Controller:ADC_Controller|wait_cnt[3]      ; 0                 ; 6       ;
+;      - ADC_Controller:ADC_Controller|wait_cnt[4]      ; 0                 ; 6       ;
+;      - ADC_Controller:ADC_Controller|wait_cnt[5]      ; 0                 ; 6       ;
+;      - ADC_Controller:ADC_Controller|wait_cnt[6]      ; 0                 ; 6       ;
+;      - ADC_Controller:ADC_Controller|wait_cnt[7]      ; 0                 ; 6       ;
+;      - ADC_Controller:ADC_Controller|wait_cnt[8]      ; 0                 ; 6       ;
+;      - ADC_Controller:ADC_Controller|wait_cnt[9]      ; 0                 ; 6       ;
+;      - ADC_Controller:ADC_Controller|wait_cnt[10]     ; 0                 ; 6       ;
+;      - ADC_Controller:ADC_Controller|wait_cnt[11]     ; 0                 ; 6       ;
+;      - ADC_Controller:ADC_Controller|wait_cnt[12]     ; 0                 ; 6       ;
+;      - ADC_Controller:ADC_Controller|wait_cnt[13]     ; 0                 ; 6       ;
+;      - ADC_Controller:ADC_Controller|wait_cnt[14]     ; 0                 ; 6       ;
+;      - ADC_Controller:ADC_Controller|wait_cnt[15]     ; 0                 ; 6       ;
+;      - ADC_Controller:ADC_Controller|wait_cnt[16]     ; 0                 ; 6       ;
+;      - ADC_Controller:ADC_Controller|wait_cnt[17]     ; 0                 ; 6       ;
+;      - ADC_Controller:ADC_Controller|wait_cnt[18]     ; 0                 ; 6       ;
+;      - ADC_Controller:ADC_Controller|wait_cnt[19]     ; 0                 ; 6       ;
+;      - ADC_Controller:ADC_Controller|wait_cnt[20]     ; 0                 ; 6       ;
+;      - ADC_Controller:ADC_Controller|wait_cnt[21]     ; 0                 ; 6       ;
+;      - ADC_Controller:ADC_Controller|wait_cnt[22]     ; 0                 ; 6       ;
+;      - ADC_Controller:ADC_Controller|wait_cnt[23]     ; 0                 ; 6       ;
+;      - ADC_Controller:ADC_Controller|wait_cnt[24]     ; 0                 ; 6       ;
+;      - ADC_Controller:ADC_Controller|wait_cnt[25]     ; 0                 ; 6       ;
+;      - ADC_Controller:ADC_Controller|wait_cnt[26]     ; 0                 ; 6       ;
+;      - ADC_Controller:ADC_Controller|wait_cnt[27]     ; 0                 ; 6       ;
+;      - ADC_Controller:ADC_Controller|wait_cnt[28]     ; 0                 ; 6       ;
+;      - ADC_Controller:ADC_Controller|wait_cnt[29]     ; 0                 ; 6       ;
+;      - ADC_Controller:ADC_Controller|wait_cnt[30]     ; 0                 ; 6       ;
+;      - ADC_Controller:ADC_Controller|wait_cnt[31]     ; 0                 ; 6       ;
+;      - ADC_Controller:ADC_Controller|bit_index[3]     ; 0                 ; 6       ;
+;      - ADC_Controller:ADC_Controller|bit_index[2]     ; 0                 ; 6       ;
+;      - ADC_Controller:ADC_Controller|bit_index[1]     ; 0                 ; 6       ;
+;      - ADC_Controller:ADC_Controller|shift_reg[15]    ; 0                 ; 6       ;
+;      - ADC_Controller:ADC_Controller|shift_reg[10]    ; 0                 ; 6       ;
+;      - ADC_Controller:ADC_Controller|shift_reg[9]     ; 0                 ; 6       ;
+;      - ADC_Controller:ADC_Controller|shift_reg[14]    ; 0                 ; 6       ;
+;      - ADC_Controller:ADC_Controller|shift_reg[8]     ; 0                 ; 6       ;
+;      - ADC_Controller:ADC_Controller|shift_reg[13]    ; 0                 ; 6       ;
+;      - ADC_Controller:ADC_Controller|shift_reg[7]     ; 0                 ; 6       ;
+;      - ADC_Controller:ADC_Controller|shift_reg[12]    ; 0                 ; 6       ;
+;      - ADC_Controller:ADC_Controller|shift_reg[6]     ; 0                 ; 6       ;
+;      - ADC_Controller:ADC_Controller|shift_reg[5]     ; 0                 ; 6       ;
+;      - ADC_Controller:ADC_Controller|shift_reg[4]     ; 0                 ; 6       ;
+;      - ADC_Controller:ADC_Controller|shift_reg[3]     ; 0                 ; 6       ;
+;      - ADC_Controller:ADC_Controller|shift_reg[2]     ; 0                 ; 6       ;
+;      - ADC_Controller:ADC_Controller|shift_reg[1]     ; 0                 ; 6       ;
+;      - ADC_Controller:ADC_Controller|shift_reg[0]     ; 0                 ; 6       ;
+;      - ADC_Controller:ADC_Controller|cs_n             ; 0                 ; 6       ;
+;      - ADC_Controller:ADC_Controller|state.ST_START   ; 0                 ; 6       ;
+;      - ADC_Controller:ADC_Controller|count[4]         ; 0                 ; 6       ;
+;      - ADC_Controller:ADC_Controller|count[3]         ; 0                 ; 6       ;
+;      - ADC_Controller:ADC_Controller|count[2]         ; 0                 ; 6       ;
+;      - ADC_Controller:ADC_Controller|count[1]         ; 0                 ; 6       ;
+;      - ADC_Controller:ADC_Controller|count[0]         ; 0                 ; 6       ;
+;      - ADC_Controller:ADC_Controller|channel[0]       ; 0                 ; 6       ;
+;      - ADC_Controller:ADC_Controller|shift_reg[11]~16 ; 0                 ; 6       ;
+; ADC_MISO                                              ;                   ;         ;
++-------------------------------------------------------+-------------------+---------+
 
 
-+----------------------------------------------------------------------------------------------------------------------------------------------------------+
-; Control Signals                                                                                                                                          ;
-+----------------+-------------------+---------+----------------------------+--------+----------------------+------------------+---------------------------+
-; Name           ; Location          ; Fan-Out ; Usage                      ; Global ; Global Resource Used ; Global Line Name ; Enable Signal Source Name ;
-+----------------+-------------------+---------+----------------------------+--------+----------------------+------------------+---------------------------+
-; CLK            ; PIN_R8            ; 70      ; Clock                      ; yes    ; Global Clock         ; GCLK18           ; --                        ;
-; NRST           ; PIN_J15           ; 70      ; Async. clear, Clock enable ; no     ; --                   ; --               ; --                        ;
-; Selector10~2   ; LCCOMB_X48_Y17_N0 ; 33      ; Clock enable               ; no     ; --                   ; --               ; --                        ;
-; shift_en       ; FF_X48_Y18_N29    ; 23      ; Clock enable               ; no     ; --                   ; --               ; --                        ;
-; state.ST_SCK_H ; FF_X48_Y17_N5     ; 25      ; Sync. load                 ; no     ; --                   ; --               ; --                        ;
-; state.ST_WAIT  ; FF_X48_Y17_N7     ; 39      ; Clock enable, Sync. load   ; no     ; --                   ; --               ; --                        ;
-+----------------+-------------------+---------+----------------------------+--------+----------------------+------------------+---------------------------+
++----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Control Signals                                                                                                                                                                        ;
++----------------------------------------------+-------------------+---------+----------------------------+--------+----------------------+------------------+---------------------------+
+; Name                                         ; Location          ; Fan-Out ; Usage                      ; Global ; Global Resource Used ; Global Line Name ; Enable Signal Source Name ;
++----------------------------------------------+-------------------+---------+----------------------------+--------+----------------------+------------------+---------------------------+
+; ADC_Controller:ADC_Controller|Selector10~2   ; LCCOMB_X48_Y17_N0 ; 33      ; Clock enable               ; no     ; --                   ; --               ; --                        ;
+; ADC_Controller:ADC_Controller|shift_en       ; FF_X48_Y18_N29    ; 23      ; Clock enable               ; no     ; --                   ; --               ; --                        ;
+; ADC_Controller:ADC_Controller|state.ST_SCK_H ; FF_X48_Y17_N5     ; 25      ; Sync. load                 ; no     ; --                   ; --               ; --                        ;
+; ADC_Controller:ADC_Controller|state.ST_WAIT  ; FF_X48_Y17_N7     ; 39      ; Clock enable, Sync. load   ; no     ; --                   ; --               ; --                        ;
+; CLK                                          ; PIN_R8            ; 70      ; Clock                      ; yes    ; Global Clock         ; GCLK18           ; --                        ;
+; NRST                                         ; PIN_J15           ; 70      ; Async. clear, Clock enable ; no     ; --                   ; --               ; --                        ;
++----------------------------------------------+-------------------+---------+----------------------------+--------+----------------------+------------------+---------------------------+
 
 
 +----------------------------------------------------------------------------------------------------------------------------------------+
@@ -1124,7 +1126,7 @@ Info (170195): Router estimated average interconnect usage is 0% of the availabl
 Info (170199): The Fitter performed an Auto Fit compilation.  Optimizations were skipped to reduce compilation time.
     Info (170201): Optimizations that may affect the design's routability were skipped
 Info (170194): Fitter routing operations ending: elapsed time is 00:00:01
-Info (11888): Total time spent on timing analysis during the Fitter is 0.14 seconds.
+Info (11888): Total time spent on timing analysis during the Fitter is 0.13 seconds.
 Info (334003): Started post-fitting delay annotation
 Info (334004): Delay annotation completed successfully
 Info (334003): Started post-fitting delay annotation
@@ -1137,8 +1139,8 @@ Warning (169177): 3 pins must meet Intel FPGA requirements for 3.3-, 3.0-, and 2
 Info (144001): Generated suppressed messages file C:/Users/aleen/Downloads/miniProjectSignal/mainVHDL/output_files/mainVHDL.fit.smsg
 Info: Quartus Prime Fitter was successful. 0 errors, 5 warnings
     Info: Peak virtual memory: 5533 megabytes
-    Info: Processing ended: Sat Nov 02 14:14:22 2024
-    Info: Elapsed time: 00:00:05
+    Info: Processing ended: Sat Nov 02 14:47:14 2024
+    Info: Elapsed time: 00:00:07
     Info: Total CPU time (on all processors): 00:00:03
 
 
