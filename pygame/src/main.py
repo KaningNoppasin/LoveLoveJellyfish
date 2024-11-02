@@ -26,29 +26,6 @@ bg = pygame.transform.scale(pygame.image.load(
     fr'{imagesPath}bg.png'), (SCREEN_W, SCREEN_H))
 
 # ---------------------------------------------
-# --------------- Jet Sprite ---------------
-jet_img = pygame.image.load(fr'{imagesPath}fighter-jet.png')
-
-
-class Jet(pygame.sprite.Sprite):
-    def __init__(self):
-        super(Jet, self).__init__()
-        self.image = jet_img
-        # self.rect = self.image.get_rect(center=screen_rect.center)
-        self.rect = self.image.get_rect(
-            center=(int(SCREEN_W * 0.07), int(SCREEN_H * 0.9)))
-        self.distance = 10
-
-    def update(self, keys):
-        if keys[K_UP]:  # type: ignore
-            self.rect.move_ip(0, -self.distance)
-            if self.rect.top <= 0:
-                self.rect.top = 0
-
-        elif keys[K_DOWN]:  # type: ignore
-            self.rect.move_ip(0, self.distance)
-            if self.rect.bottom >= SCREEN_H:
-                self.rect.bottom = SCREEN_H
 
 # --------------- Cloud Sprite ---------------
 # cloud1 = pygame.image.load(fr'{imagesPath}cloud1.png')
@@ -115,66 +92,41 @@ class CloudTop(pygame.sprite.Sprite):
             self.kill()
 
 
-# --------------- Pterodactyl Sprite ---------------
-# pte_img = pygame.image.load(fr'{imagesPath}Jlfpink.png')
-pte_img = pygame.transform.scale(pygame.image.load(
-    fr'{imagesPath}Jlfpink.png'), (SCREEN_W//3.5, SCREEN_H//3.5))
-pte_num_subimgs = 3
-pte_subimg_w = pte_img.get_width() // pte_num_subimgs
-pte_subimg_h = pte_img.get_height()
-pte_subimgs = []
+# --------------- jellyfish Sprite ---------------
+jellyfish_img = pygame.transform.scale(pygame.image.load(
+    fr'{imagesPath}Jellyfish.png'), (SCREEN_W//3.5, SCREEN_H//3.5))
+jellyfish_num_sub_imgs = 3
+jellyfish_sub_img_w = jellyfish_img.get_width() // jellyfish_num_sub_imgs
+jellyfish_sub_img_h = jellyfish_img.get_height()
+jellyfish_sub_imgs = []
 
-for i in range(pte_num_subimgs):
-    x = i * pte_subimg_w
-    f = pte_img.subsurface(x, 0, pte_subimg_w, pte_subimg_h)
-    pte_subimgs.append(f)
+for i in range(jellyfish_num_sub_imgs):
+    x = i * jellyfish_sub_img_w
+    f = jellyfish_img.subsurface(x, 0, jellyfish_sub_img_w, jellyfish_sub_img_h)
+    jellyfish_sub_imgs.append(f)
 
-pte_repeat = FPS // pte_num_subimgs  # แสดงภาพย่อยซ้ำๆ จำนวนกี่เฟรม
-
-# กรณีที่นำจำนวนภาพย่อยไปหารอัตราเฟรมแล้วได้เลขไม่ลงตัว
-# เช่น ถ้าอัตราเฟรมเป็น 30 แล้วมี 4 ภาพย่อย
-# ดังนั้น 30 // 4 => 7 (แต่เหลือเศษ 2)
-# แสดงว่า เมื่อมาถึงเฟรมที่ 28 (4 * 7)  ก็จะครบทุกภาพย่อย
-# แล้วไม่มีภาพให้แสดงต่อไปอีก ดังนั้น เราจึงสร้างขอบเขตไว้ตรวจสอบว่า
-# เมื่อมาถึงลำดับเฟรมนี้แล้ว จะทำอย่างไรต่อไป
-# โดยลำดับเฟรมสุดท้ายคือ ผลคูณของจำนวนภาพย่อย กับ จำนวนที่แสดงซ้ำ
-# แล้ว -1 เพราะลำดับภาพเริ่มจาก 0
-pte_last_frame = (pte_num_subimgs * pte_repeat) - 1
+jellyfish_repeat = FPS // jellyfish_num_sub_imgs
+jellyfish_last_frame = (jellyfish_num_sub_imgs * jellyfish_repeat) - 1
 
 
-class Pterodactyl(pygame.sprite.Sprite):
+class Jellyfish(pygame.sprite.Sprite):
     def __init__(self):
-        super(Pterodactyl, self).__init__()
-        self.image = pte_subimgs[0]  # ให้พร็อปเพอร์ตี้ image เป็นภาพแรกไว้ก่อน
-
-        # กำหนดพร็อปเพอร์ตี้ rect พร้อมระบุ ตำแหน่งเริ่มแรกและขนาด
-        # (left, top, w, h) ไม่ต้องระบุ Label
-        # self.rect = pygame.Rect(
-        #     -pte_subimg_w, 0, pte_subimg_w, pte_subimg_h
-        # )
+        super(Jellyfish, self).__init__()
+        self.image = jellyfish_sub_imgs[0]
         self.rect = self.image.get_rect(
             center=(int(SCREEN_W * 0.07), int(SCREEN_H * 0.9)))
-
-        self.index = 0  # ลำดับเฟรม (หน้าจอ)
+        self.index = 0
         self.speedx = 5
         self.distance = 10
 
     def update(self, keys):
-        # ถ้าแสดงภาพย่อยมาจนถึงลำดับเฟรม (หน้าจอ) สุดท้ายที่ตั้งเอาไว้
-        # ให้กลับไปเริ่มแสดงที่ภาพแรกใหม่
-        if self.index >= pte_last_frame:
+        if self.index >= jellyfish_last_frame:
             self.index = 0
 
-        # ลำดับภาพย่อยที่จะนำมาแสดงในลำดับเฟรมนั้น
-        i = self.index // pte_repeat
-
-        # เปลี่ยนค่าของพร็อปเพอร์ตี้ image ไปตามลำดับภาพย่อย
-        self.image = pte_subimgs[i]
+        i = self.index // jellyfish_repeat
+        self.image = jellyfish_sub_imgs[i]
         self.index += 1
 
-        # self.rect.move_ip(self.speedx, 0)
-        # if self.rect.left > SCREEN_W:  # ถ้าหลุดจากขอบหน้าจอด้านขวา
-        #     self.rect.left = -self.rect.width  # ให้กลับไปเริ่มที่ขอบด้านซ้าย
         if keys[K_UP]:  # type: ignore
             self.rect.move_ip(0, -self.distance)
             if self.rect.top <= 0:
@@ -234,11 +186,9 @@ def intro_screen():
                     sys.exit()
 
 
-group_ptero = pygame.sprite.Group()
-group_ptero.add(Pterodactyl())
+group_jellyfish = pygame.sprite.Group()
+group_jellyfish.add(Jellyfish())
 
-group_jet = pygame.sprite.Group()
-group_jet.add(Jet())
 
 group_cloud_top = pygame.sprite.Group()
 group_cloud_top.add(CloudTop())
@@ -278,16 +228,14 @@ while running:
     screen.blit(bg, bg.get_rect())
 
     keys = pygame.key.get_pressed()
-    group_ptero.update(keys)
-    group_jet.update(keys)
+    group_jellyfish.update(keys)
     group_cloud_top.update()
     group_cloud_button.update()
 
-    # group_jet.draw(screen) #*for test
     group_cloud_top.draw(screen)
     group_cloud_button.draw(screen)
-    group_ptero.draw(screen)
-    draw_text('Click mouse for game over', 36, WHITE,
+    group_jellyfish.draw(screen)
+    draw_text('Click mouse for game over', 36, BLACK,
               screen_rect.centerx, screen_rect.centery-20)
 
     pygame.display.flip()
