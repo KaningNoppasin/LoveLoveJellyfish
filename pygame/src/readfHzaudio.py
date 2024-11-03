@@ -17,43 +17,23 @@ stream = p.open(format=FORMAT,
                 input=True,
                 frames_per_buffer=CHUNK)
 
-print("Recording frequencies... Press Ctrl+C to stop.")
+def readfHz():
+    data = stream.read(CHUNK, exception_on_overflow=False)
 
-try:
-    while True:
-        # Read audio data from the microphone
-        data = stream.read(CHUNK, exception_on_overflow=False)
+    # Convert audio data to numpy array
+    audio_data = np.frombuffer(data, dtype=np.int16)
 
-        # Convert audio data to numpy array
-        audio_data = np.frombuffer(data, dtype=np.int16)
+    # Apply FFT to find frequency spectrum
+    fft_data = np.fft.fft(audio_data)
 
-        # Apply FFT to find frequency spectrum
-        fft_data = np.fft.fft(audio_data)
+    # Get frequency bins
+    freqs = np.fft.fftfreq(len(fft_data), 1 / RATE)
 
-        # Get frequency bins
-        freqs = np.fft.fftfreq(len(fft_data), 1 / RATE)
+    # Calculate magnitudes and find the dominant frequency
+    magnitudes = np.abs(fft_data)
+    # Only consider positive frequencies
+    dominant_freq = abs(freqs[np.argmax(magnitudes[:CHUNK // 2])])
 
-        # Calculate magnitudes and find the dominant frequency
-        magnitudes = np.abs(fft_data)
-        # Only consider positive frequencies
-        dominant_freq = abs(freqs[np.argmax(magnitudes[:CHUNK // 2])])
-
-        # Print the dominant frequency in real-time
-        print(f"Real-time Dominant Frequency: {dominant_freq:.2f} Hz")
-
-except KeyboardInterrupt:
-    # Stop and close the stream
-    stream.stop_stream()
-    stream.close()
-    p.terminate()
-    print("\nStopped recording.")
-
-except Exception as e:
-    # Handle any unexpected errors
-    print(f"An error occurred: {e}")
-
-finally:
-    # Ensure the stream is closed upon exit
-    stream.stop_stream()
-    stream.close()
-    p.terminate()
+    # Print the dominant frequency in real-time
+    print(f"Real-time Dominant Frequency: {dominant_freq:.2f} Hz")
+    return dominant_freq
