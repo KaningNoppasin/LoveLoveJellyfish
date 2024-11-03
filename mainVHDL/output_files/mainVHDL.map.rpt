@@ -1,5 +1,5 @@
 Analysis & Synthesis report for mainVHDL
-Sun Nov 03 14:54:09 2024
+Sun Nov 03 16:53:01 2024
 Quartus Prime Version 20.1.1 Build 720 11/11/2020 SJ Lite Edition
 
 
@@ -49,7 +49,7 @@ https://fpgasoftware.intel.com/eula.
 +----------------------------------------------------------------------------------+
 ; Analysis & Synthesis Summary                                                     ;
 +------------------------------------+---------------------------------------------+
-; Analysis & Synthesis Status        ; Successful - Sun Nov 03 14:54:09 2024       ;
+; Analysis & Synthesis Status        ; Successful - Sun Nov 03 16:53:01 2024       ;
 ; Quartus Prime Version              ; 20.1.1 Build 720 11/11/2020 SJ Lite Edition ;
 ; Revision Name                      ; mainVHDL                                    ;
 ; Top-level Entity Name              ; mainVHDL                                    ;
@@ -261,25 +261,26 @@ Encoding Type:  One-Hot
 ; UART_TX:UART_TX|bit_index[0..2]            ; Lost fanout                                 ;
 ; UART_TX:UART_TX|uart_state.IDLE            ; Stuck at GND due to stuck port data_in      ;
 ; UART_TX:UART_TX|uart_state.STOP_BIT        ; Stuck at GND due to stuck port data_in      ;
-; UART_TX:UART_TX|clk_count[0..4]            ; Stuck at GND due to stuck port clock_enable ;
+; UART_TX:UART_TX|clk_count[0..7]            ; Stuck at GND due to stuck port clock_enable ;
 ; UART_TX:UART_TX|tx                         ; Stuck at VCC due to stuck port data_in      ;
-; Total Number of Removed Registers = 15     ;                                             ;
+; Total Number of Removed Registers = 18     ;                                             ;
 +--------------------------------------------+---------------------------------------------+
 
 
-+--------------------------------------------------------------------------------------------------------------------------------+
-; Removed Registers Triggering Further Register Optimizations                                                                    ;
-+--------------------------------------+---------------------------+-------------------------------------------------------------+
-; Register name                        ; Reason for Removal        ; Registers Removed due to This Register                      ;
-+--------------------------------------+---------------------------+-------------------------------------------------------------+
-; UART_TX:UART_TX|uart_state.IDLE      ; Stuck at GND              ; UART_TX:UART_TX|clk_count[0], UART_TX:UART_TX|clk_count[1], ;
-;                                      ; due to stuck port data_in ; UART_TX:UART_TX|clk_count[2], UART_TX:UART_TX|clk_count[3], ;
-;                                      ;                           ; UART_TX:UART_TX|clk_count[4], UART_TX:UART_TX|tx            ;
-; UART_TX:UART_TX|uart_state.DATA_BITS ; Stuck at GND              ; UART_TX:UART_TX|bit_index[1], UART_TX:UART_TX|bit_index[2], ;
-;                                      ; due to stuck port data_in ; UART_TX:UART_TX|uart_state.STOP_BIT                         ;
-; UART_TX:UART_TX|uart_state.START_BIT ; Stuck at GND              ; UART_TX:UART_TX|bit_index[0]                                ;
-;                                      ; due to stuck port data_in ;                                                             ;
-+--------------------------------------+---------------------------+-------------------------------------------------------------+
++---------------------------------------------------------------------------------------------------------------------------------------------------+
+; Removed Registers Triggering Further Register Optimizations                                                                                       ;
++--------------------------------------+---------------------------+--------------------------------------------------------------------------------+
+; Register name                        ; Reason for Removal        ; Registers Removed due to This Register                                         ;
++--------------------------------------+---------------------------+--------------------------------------------------------------------------------+
+; UART_TX:UART_TX|uart_state.IDLE      ; Stuck at GND              ; UART_TX:UART_TX|clk_count[0], UART_TX:UART_TX|clk_count[1],                    ;
+;                                      ; due to stuck port data_in ; UART_TX:UART_TX|clk_count[2], UART_TX:UART_TX|clk_count[3],                    ;
+;                                      ;                           ; UART_TX:UART_TX|clk_count[4], UART_TX:UART_TX|clk_count[5],                    ;
+;                                      ;                           ; UART_TX:UART_TX|clk_count[6], UART_TX:UART_TX|clk_count[7], UART_TX:UART_TX|tx ;
+; UART_TX:UART_TX|uart_state.START_BIT ; Stuck at GND              ; UART_TX:UART_TX|bit_index[1], UART_TX:UART_TX|bit_index[0]                     ;
+;                                      ; due to stuck port data_in ;                                                                                ;
+; UART_TX:UART_TX|uart_state.DATA_BITS ; Stuck at GND              ; UART_TX:UART_TX|bit_index[2], UART_TX:UART_TX|uart_state.STOP_BIT              ;
+;                                      ; due to stuck port data_in ;                                                                                ;
++--------------------------------------+---------------------------+--------------------------------------------------------------------------------+
 
 
 +------------------------------------------------------+
@@ -312,11 +313,11 @@ Encoding Type:  One-Hot
 +--------------------+-----------+---------------+----------------------+------------------------+------------+-----------------------------------------------------+
 ; Multiplexer Inputs ; Bus Width ; Baseline Area ; Area if Restructured ; Saving if Restructured ; Registered ; Example Multiplexer Output                          ;
 +--------------------+-----------+---------------+----------------------+------------------------+------------+-----------------------------------------------------+
-; 3:1                ; 5 bits    ; 10 LEs        ; 5 LEs                ; 5 LEs                  ; Yes        ; |mainVHDL|UART_TX:UART_TX|clk_count[0]              ;
-; 5:1                ; 32 bits   ; 96 LEs        ; 32 LEs               ; 64 LEs                 ; Yes        ; |mainVHDL|ADC_Controller:ADC_Controller|wait_cnt[3] ;
-; 5:1                ; 3 bits    ; 9 LEs         ; 3 LEs                ; 6 LEs                  ; Yes        ; |mainVHDL|UART_TX:UART_TX|bit_index[0]              ;
-; 5:1                ; 2 bits    ; 6 LEs         ; 4 LEs                ; 2 LEs                  ; No         ; |mainVHDL|UART_TX:UART_TX|Selector7                 ;
-; 7:1                ; 2 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; No         ; |mainVHDL|UART_TX:UART_TX|Selector6                 ;
+; 3:1                ; 8 bits    ; 16 LEs        ; 8 LEs                ; 8 LEs                  ; Yes        ; |mainVHDL|UART_TX:UART_TX|clk_count[1]              ;
+; 5:1                ; 32 bits   ; 96 LEs        ; 32 LEs               ; 64 LEs                 ; Yes        ; |mainVHDL|ADC_Controller:ADC_Controller|wait_cnt[6] ;
+; 5:1                ; 3 bits    ; 9 LEs         ; 3 LEs                ; 6 LEs                  ; Yes        ; |mainVHDL|UART_TX:UART_TX|bit_index[2]              ;
+; 5:1                ; 2 bits    ; 6 LEs         ; 4 LEs                ; 2 LEs                  ; No         ; |mainVHDL|UART_TX:UART_TX|Selector10                ;
+; 7:1                ; 2 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; No         ; |mainVHDL|UART_TX:UART_TX|Selector9                 ;
 +--------------------+-----------+---------------+----------------------+------------------------+------------+-----------------------------------------------------+
 
 
@@ -363,7 +364,7 @@ Encoding Type:  One-Hot
 Info: *******************************************************************
 Info: Running Quartus Prime Analysis & Synthesis
     Info: Version 20.1.1 Build 720 11/11/2020 SJ Lite Edition
-    Info: Processing started: Sun Nov 03 14:53:59 2024
+    Info: Processing started: Sun Nov 03 16:52:51 2024
 Info: Command: quartus_map --read_settings_files=on --write_settings_files=off mainVHDL -c mainVHDL
 Warning (18236): Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
 Info (20030): Parallel compilation is enabled and will use 4 of the 4 processors detected
@@ -379,7 +380,7 @@ Info (12021): Found 2 design units, including 1 entities, in source file uart_tx
 Info (12127): Elaborating entity "mainVHDL" for the top level hierarchy
 Info (12128): Elaborating entity "ADC_Controller" for hierarchy "ADC_Controller:ADC_Controller" File: C:/Users/aleen/Downloads/miniProjectSignal/mainVHDL/mainVHDL.vhd Line: 22
 Info (12128): Elaborating entity "UART_TX" for hierarchy "UART_TX:UART_TX" File: C:/Users/aleen/Downloads/miniProjectSignal/mainVHDL/mainVHDL.vhd Line: 33
-Warning (10540): VHDL Signal Declaration warning at UART_TX.vhd(25): used explicit default value for signal "uart_send_trigger" because signal was never assigned a value File: C:/Users/aleen/Downloads/miniProjectSignal/mainVHDL/UART_TX.vhd Line: 25
+Warning (10540): VHDL Signal Declaration warning at UART_TX.vhd(26): used explicit default value for signal "uart_send_trigger" because signal was never assigned a value File: C:/Users/aleen/Downloads/miniProjectSignal/mainVHDL/UART_TX.vhd Line: 26
 Info (13000): Registers with preset signals will power-up high File: C:/Users/aleen/Downloads/miniProjectSignal/mainVHDL/ADC_Controller.vhd Line: 77
 Info (13003): DEV_CLRn pin will set, and not reset, register with preset signal due to NOT Gate Push-Back
 Warning (13024): Output pins are stuck at VCC or GND
@@ -394,9 +395,9 @@ Info (21057): Implemented 138 device resources after synthesis - the final resou
     Info (21059): Implemented 12 output pins
     Info (21061): Implemented 123 logic cells
 Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 5 warnings
-    Info: Peak virtual memory: 4787 megabytes
-    Info: Processing ended: Sun Nov 03 14:54:09 2024
+    Info: Peak virtual memory: 4776 megabytes
+    Info: Processing ended: Sun Nov 03 16:53:01 2024
     Info: Elapsed time: 00:00:10
-    Info: Total CPU time (on all processors): 00:00:12
+    Info: Total CPU time (on all processors): 00:00:13
 
 

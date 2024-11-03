@@ -1,11 +1,11 @@
-Fitter Status : Successful - Sun Nov 03 14:54:15 2024
+Fitter Status : Successful - Sun Nov 03 16:53:08 2024
 Quartus Prime Version : 20.1.1 Build 720 11/11/2020 SJ Lite Edition
 Revision Name : mainVHDL
 Top-level Entity Name : mainVHDL
 Family : Cyclone IV E
 Device : EP4CE22F17C6
 Timing Models : Final
-Total logic elements : 121 / 22,320 ( < 1 % )
+Total logic elements : 123 / 22,320 ( < 1 % )
     Total combinational functions : 118 / 22,320 ( < 1 % )
     Dedicated logic registers : 70 / 22,320 ( < 1 % )
 Total registers : 70

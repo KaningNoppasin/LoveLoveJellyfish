@@ -3,19 +3,19 @@ CLK => adc_controller:ADC_Controller.CLK
 CLK => uart_tx:UART_TX.clk
 NRST => adc_controller:ADC_Controller.NRST
 NRST => uart_tx:UART_TX.reset_n
-ADC_CSN << adc_controller:ADC_Controller.ADC_CSN
-ADC_SCLK << adc_controller:ADC_Controller.ADC_SCLK
-ADC_MOSI << adc_controller:ADC_Controller.ADC_MOSI
+ADC_CSN <= adc_controller:ADC_Controller.ADC_CSN
+ADC_SCLK <= adc_controller:ADC_Controller.ADC_SCLK
+ADC_MOSI <= adc_controller:ADC_Controller.ADC_MOSI
 ADC_MISO => adc_controller:ADC_Controller.ADC_MISO
-LEDS[0] << adc_controller:ADC_Controller.LEDS[0]
-LEDS[1] << adc_controller:ADC_Controller.LEDS[1]
-LEDS[2] << adc_controller:ADC_Controller.LEDS[2]
-LEDS[3] << adc_controller:ADC_Controller.LEDS[3]
-LEDS[4] << adc_controller:ADC_Controller.LEDS[4]
-LEDS[5] << adc_controller:ADC_Controller.LEDS[5]
-LEDS[6] << adc_controller:ADC_Controller.LEDS[6]
-LEDS[7] << adc_controller:ADC_Controller.LEDS[7]
-tx << uart_tx:UART_TX.tx
+LEDS[0] <= adc_controller:ADC_Controller.LEDS[0]
+LEDS[1] <= adc_controller:ADC_Controller.LEDS[1]
+LEDS[2] <= adc_controller:ADC_Controller.LEDS[2]
+LEDS[3] <= adc_controller:ADC_Controller.LEDS[3]
+LEDS[4] <= adc_controller:ADC_Controller.LEDS[4]
+LEDS[5] <= adc_controller:ADC_Controller.LEDS[5]
+LEDS[6] <= adc_controller:ADC_Controller.LEDS[6]
+LEDS[7] <= adc_controller:ADC_Controller.LEDS[7]
+tx <= uart_tx:UART_TX.tx
 
 
 |mainVHDL|ADC_Controller:ADC_Controller
@@ -178,6 +178,9 @@ clk => clk_count[1].CLK
 clk => clk_count[2].CLK
 clk => clk_count[3].CLK
 clk => clk_count[4].CLK
+clk => clk_count[5].CLK
+clk => clk_count[6].CLK
+clk => clk_count[7].CLK
 clk => tx~reg0.CLK
 clk => uart_state~5.DATAIN
 reset_n => ~NO_FANOUT~
