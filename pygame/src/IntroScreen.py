@@ -5,7 +5,18 @@ from config import *
 from init import *
 from JellyfishSprite import *
 # --------------- Text & Intro Screen ---------------
-
+jellyfish_man_intro = Jellyfish(
+        jellyfish_img=jellyfish_man_img,
+        jellyfish_num_sub_imgs=3,
+        x_position=int(SCREEN_W // 2 - SCREEN_W * 0.1),
+        y_position=int(SCREEN_H // 2)
+    )
+jellyfish_girl_cry_intro = Jellyfish(
+        jellyfish_img=jellyfish_girl_cry_img,
+        jellyfish_num_sub_imgs=3,
+        x_position=int(SCREEN_W // 2 + SCREEN_W * 0.1),
+        y_position=int(SCREEN_H // 2)
+    )
 
 def draw_text(text, size, color, x, y, fontFile=None):
     if fontFile == None:
@@ -19,29 +30,35 @@ def draw_text(text, size, color, x, y, fontFile=None):
 
 
 def intro_screen():
-    screen.fill(BLUE)
-
-    # screen.blit(cover, cover.get_rect())
-    screen.blit(bg, bg.get_rect())
-    cx = screen_rect.centerx
-    draw_text('Love Love Jellyfish',
-              128, BLUESKY, cx, 50, fr'{fontsPath}SmothyBubble.com.otf')
-
-    btn_exit_image = pygame.image.load(fr'{imagesPath}btn-exit.png')
-    btn_exit_rect = btn_exit_image.get_rect(
-        right=cx-30, top=int(SCREEN_H * 0.75))
-
-    btn_start_image = pygame.image.load(fr'{imagesPath}btn-start.png')
-    btn_start_rect = btn_start_image.get_rect(
-        left=cx+30, top=int(SCREEN_H * 0.75))
-
-    screen.blit(btn_start_image, btn_start_rect)
-    screen.blit(btn_exit_image, btn_exit_rect)
-
-    pygame.display.flip()
 
     waiting = True
     while waiting:
+        screen.fill(BLUE)
+
+        # screen.blit(cover, cover.get_rect())
+        screen.blit(bg, bg.get_rect())
+        cx = screen_rect.centerx
+        draw_text('Love Love Jellyfish',
+                128, BLUESKY, cx, 50, fr'{fontsPath}SmothyBubble.com.otf')
+
+        btn_exit_image = pygame.image.load(fr'{imagesPath}btn-exit.png')
+        btn_exit_rect = btn_exit_image.get_rect(
+            right=cx-30, top=int(SCREEN_H * 0.75))
+
+        btn_start_image = pygame.image.load(fr'{imagesPath}btn-start.png')
+        btn_start_rect = btn_start_image.get_rect(
+            left=cx+30, top=int(SCREEN_H * 0.75))
+
+        jellyfish_man_intro.update()
+        jellyfish_girl_cry_intro.update()
+
+        screen.blit(jellyfish_man_intro.image, jellyfish_man_intro.rect)
+        screen.blit(jellyfish_girl_cry_intro.image, jellyfish_girl_cry_intro.rect)
+
+        screen.blit(btn_start_image, btn_start_rect)
+        screen.blit(btn_exit_image, btn_exit_rect)
+
+        pygame.display.flip()
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
