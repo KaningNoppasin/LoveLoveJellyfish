@@ -23,6 +23,9 @@ source pygame_env/bin/activate
 pip install pygame
 pip install numpy
 pip install pyaudio
+pip install pyserial
+pip install serial
+
 ```
 
 ## Running the Project
