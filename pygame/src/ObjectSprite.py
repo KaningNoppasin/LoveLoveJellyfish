@@ -4,13 +4,13 @@ import random
 from init import *
 
 # --------------- Object Sprite ---------------
-object_bottom1 = pygame.transform.scale(pygame.image.load(fr'{imagesPath}Object/ObjectBottom1.png'), (SCREEN_H//2.5, SCREEN_W//2.5))
-object_bottom2 = pygame.transform.scale(pygame.image.load(fr'{imagesPath}Object/ObjectBottom2.png'), (SCREEN_H//2.5, SCREEN_W//2.5))
-object_bottom3 = pygame.transform.scale(pygame.image.load(fr'{imagesPath}Object/ObjectBottom3.png'), (SCREEN_H//2.5, SCREEN_W//2.5))
+object_bottom1 = pygame.transform.scale(pygame.image.load(fr'{imagesPath}Objects/ObjectBottom1.png'), (SCREEN_H//2.5, SCREEN_W//2.5))
+object_bottom2 = pygame.transform.scale(pygame.image.load(fr'{imagesPath}Objects/ObjectBottom2.png'), (SCREEN_H//2.5, SCREEN_W//2.5))
+object_bottom3 = pygame.transform.scale(pygame.image.load(fr'{imagesPath}Objects/ObjectBottom3.png'), (SCREEN_H//2.5, SCREEN_W//2.5))
 
-object_top1 = pygame.transform.scale(pygame.image.load(fr'{imagesPath}Object/ObjectTop1.png'), (SCREEN_H//2.5, SCREEN_W//2.5))
-object_top2 = pygame.transform.scale(pygame.image.load(fr'{imagesPath}Object/ObjectTop2.png'), (SCREEN_H//2.5, SCREEN_W//2.5))
-object_top3 = pygame.transform.scale(pygame.image.load(fr'{imagesPath}Object/ObjectTop3.png'), (SCREEN_H//2.5, SCREEN_W//2.5))
+object_top1 = pygame.transform.scale(pygame.image.load(fr'{imagesPath}Objects/ObjectTop1.png'), (SCREEN_H//2.5, SCREEN_W//2.5))
+object_top2 = pygame.transform.scale(pygame.image.load(fr'{imagesPath}Objects/ObjectTop2.png'), (SCREEN_H//2.5, SCREEN_W//2.5))
+object_top3 = pygame.transform.scale(pygame.image.load(fr'{imagesPath}Objects/ObjectTop3.png'), (SCREEN_H//2.5, SCREEN_W//2.5))
 
 objects_bottom = [object_bottom1, object_bottom2, object_bottom3]
 objects_top = [object_top1, object_top2, object_top3]

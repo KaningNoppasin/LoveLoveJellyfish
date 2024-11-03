@@ -3,7 +3,7 @@ import pygame
 from pygame.locals import *
 from config import *
 from init import *
-
+from JellyfishSprite import *
 # --------------- Text & Intro Screen ---------------
 
 
