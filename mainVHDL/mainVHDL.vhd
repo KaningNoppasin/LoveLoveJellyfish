@@ -10,12 +10,13 @@ ENTITY mainVHDL IS
     ADC_SCLK : OUT STD_LOGIC; -- ADC SPI SCLK
     ADC_MOSI : OUT STD_LOGIC; -- ADC SPI MOSI
     ADC_MISO : IN STD_LOGIC; -- ADC SPI MISO
-    LEDS : OUT STD_LOGIC_VECTOR(7 DOWNTO 0) -- 8-bit ADC OUTPUT
+    LEDS : OUT STD_LOGIC_VECTOR(7 DOWNTO 0); -- 8-bit ADC OUTPUT
+    tx : OUT STD_LOGIC -- UART
   );
 END mainVHDL;
 
 ARCHITECTURE behavioral OF mainVHDL IS
-
+  SIGNAL adc_output : STD_LOGIC_VECTOR(7 DOWNTO 0) := (OTHERS => '0');
 BEGIN
 
   ADC_Controller : entity work.ADC_Controller
@@ -26,8 +27,18 @@ BEGIN
       ADC_SCLK => ADC_SCLK,
       ADC_MOSI => ADC_MOSI,
       ADC_MISO => ADC_MISO,
-      LEDS => LEDS
+      LEDS => adc_output
     );
+
+    UART_TX : entity work.UART_TX
+      port map(
+        clk => CLK,
+        reset_n => NRST,
+        adcData => adc_output,
+        tx => tx
+      );
+
+      LEDS <= adc_output;
 
 --  PROCESS (CLK, NRST)
 --  END PROCESS;

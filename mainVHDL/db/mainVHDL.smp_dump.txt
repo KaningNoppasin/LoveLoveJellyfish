@@ -1,4 +1,11 @@
 
+State Machine - |mainVHDL|UART_TX:UART_TX|uart_state
+Name uart_state.STOP_BIT uart_state.DATA_BITS uart_state.START_BIT uart_state.IDLE 
+uart_state.IDLE 0 0 0 0 
+uart_state.START_BIT 0 0 1 1 
+uart_state.DATA_BITS 0 1 0 1 
+uart_state.STOP_BIT 1 0 0 1 
+
 State Machine - |mainVHDL|ADC_Controller:ADC_Controller|state
 Name state.ST_WAIT state.ST_SCK_L state.ST_SCK_H state.ST_START state.ST_IDLE 
 state.ST_IDLE 0 0 0 0 0 

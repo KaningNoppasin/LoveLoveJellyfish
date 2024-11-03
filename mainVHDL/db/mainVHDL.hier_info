@@ -1,18 +1,21 @@
 |mainVHDL
 CLK => adc_controller:ADC_Controller.CLK
+CLK => uart_tx:UART_TX.clk
 NRST => adc_controller:ADC_Controller.NRST
-ADC_CSN <= adc_controller:ADC_Controller.ADC_CSN
-ADC_SCLK <= adc_controller:ADC_Controller.ADC_SCLK
-ADC_MOSI <= adc_controller:ADC_Controller.ADC_MOSI
+NRST => uart_tx:UART_TX.reset_n
+ADC_CSN << adc_controller:ADC_Controller.ADC_CSN
+ADC_SCLK << adc_controller:ADC_Controller.ADC_SCLK
+ADC_MOSI << adc_controller:ADC_Controller.ADC_MOSI
 ADC_MISO => adc_controller:ADC_Controller.ADC_MISO
-LEDS[0] <= adc_controller:ADC_Controller.LEDS[0]
-LEDS[1] <= adc_controller:ADC_Controller.LEDS[1]
-LEDS[2] <= adc_controller:ADC_Controller.LEDS[2]
-LEDS[3] <= adc_controller:ADC_Controller.LEDS[3]
-LEDS[4] <= adc_controller:ADC_Controller.LEDS[4]
-LEDS[5] <= adc_controller:ADC_Controller.LEDS[5]
-LEDS[6] <= adc_controller:ADC_Controller.LEDS[6]
-LEDS[7] <= adc_controller:ADC_Controller.LEDS[7]
+LEDS[0] << adc_controller:ADC_Controller.LEDS[0]
+LEDS[1] << adc_controller:ADC_Controller.LEDS[1]
+LEDS[2] << adc_controller:ADC_Controller.LEDS[2]
+LEDS[3] << adc_controller:ADC_Controller.LEDS[3]
+LEDS[4] << adc_controller:ADC_Controller.LEDS[4]
+LEDS[5] << adc_controller:ADC_Controller.LEDS[5]
+LEDS[6] << adc_controller:ADC_Controller.LEDS[6]
+LEDS[7] << adc_controller:ADC_Controller.LEDS[7]
+tx << uart_tx:UART_TX.tx
 
 
 |mainVHDL|ADC_Controller:ADC_Controller
@@ -164,5 +167,28 @@ LEDS[4] <= WideOr1.DB_MAX_OUTPUT_PORT_TYPE
 LEDS[5] <= WideOr0.DB_MAX_OUTPUT_PORT_TYPE
 LEDS[6] <= LEDS.DB_MAX_OUTPUT_PORT_TYPE
 LEDS[7] <= Decoder0.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|mainVHDL|UART_TX:UART_TX
+clk => bit_index[0].CLK
+clk => bit_index[1].CLK
+clk => bit_index[2].CLK
+clk => clk_count[0].CLK
+clk => clk_count[1].CLK
+clk => clk_count[2].CLK
+clk => clk_count[3].CLK
+clk => clk_count[4].CLK
+clk => tx~reg0.CLK
+clk => uart_state~5.DATAIN
+reset_n => ~NO_FANOUT~
+adcData[0] => ~NO_FANOUT~
+adcData[1] => ~NO_FANOUT~
+adcData[2] => ~NO_FANOUT~
+adcData[3] => ~NO_FANOUT~
+adcData[4] => ~NO_FANOUT~
+adcData[5] => ~NO_FANOUT~
+adcData[6] => ~NO_FANOUT~
+adcData[7] => ~NO_FANOUT~
+tx <= tx~reg0.DB_MAX_OUTPUT_PORT_TYPE
 
 
