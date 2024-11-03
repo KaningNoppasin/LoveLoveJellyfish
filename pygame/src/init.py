@@ -9,11 +9,10 @@ BLACK = (0, 0, 0)
 WHITE = (255, 255, 255)
 BLUESKY = (200, 220, 255)
 BLUE = (0, 0, 255)
+DARK_ORCHID = 	(153,50,204)
 FPS = 60
 
 # --------------- Images and Sounds ---------------
-cover = pygame.transform.scale(pygame.image.load(
-    fr'{imagesPath}cover.jpg'), (SCREEN_W, SCREEN_H))
 bg = pygame.transform.scale(pygame.image.load(
     fr'{imagesPath}bg.png'), (SCREEN_W, SCREEN_H))
 

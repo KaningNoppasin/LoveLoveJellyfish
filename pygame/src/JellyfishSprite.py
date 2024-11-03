@@ -44,7 +44,11 @@ class Jellyfish(pygame.sprite.Sprite):
     def update_movement(self, keys = None, dominant_freq = None):
         if keys is None and dominant_freq is None: return
 
-        if keys[K_UP] or dominant_freq > 800:  # type: ignore
+        if dominant_freq > 500:  # type: ignore
+            self.rect.move_ip(0, -self.distance)
+            if self.rect.top <= 0:
+                self.rect.top = 0
+        elif keys[K_UP]:  # type: ignore
             self.rect.move_ip(0, -self.distance)
             if self.rect.top <= 0:
                 self.rect.top = 0
