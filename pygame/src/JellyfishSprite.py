@@ -31,7 +31,7 @@ class Jellyfish(pygame.sprite.Sprite):
         self.speedx = 5
         self.distance = 10
 
-    def update(self, keys):
+    def update(self, keys, dominant_freq):
         if self.index >= jellyfish_last_frame:
             self.index = 0
 
@@ -39,7 +39,7 @@ class Jellyfish(pygame.sprite.Sprite):
         self.image = jellyfish_sub_imgs[i]
         self.index += 1
 
-        if keys[K_UP]:  # type: ignore
+        if keys[K_UP] or dominant_freq > 800:  # type: ignore
             self.rect.move_ip(0, -self.distance)
             if self.rect.top <= 0:
                 self.rect.top = 0

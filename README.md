@@ -21,6 +21,8 @@ source pygame_env/bin/activate
 **Install Required Libraries**:
 ```bash
 pip install pygame
+pip install numpy
+pip install pyaudio
 ```
 
 ## Running the Project
