@@ -11,7 +11,7 @@ from JellyfishSprite import *
 from IntroScreen import *
 
 from readfHzaudio import *
-
+from OuttroScreen import *
 img_top = random.choice(objects_top)
 img_button = random.choice(objects_bottom)
 
@@ -33,6 +33,7 @@ OFFSET_NUMBER_OF_OBJ = 2
 is_empty_obj = False
 do_empty_obj = False
 is_win = False
+is_lose = False
 
 group_object_top = pygame.sprite.Group()
 group_object_top.add(ObjectTop(img_top))
@@ -58,8 +59,8 @@ try:
                 running = False
                 pygame.quit()
                 sys.exit()
-            elif event.type == MOUSEBUTTONDOWN:  # type: ignore
-                playing = False
+            # elif event.type == MOUSEBUTTONDOWN:  # type: ignore
+            #     playing = False
 
             if event.type == ADD_object_TOP and count_obj <= OFFSET_NUMBER_OF_OBJ:
                 count_obj += 1
@@ -105,21 +106,20 @@ try:
             elif (len(hits_bottom) > 0):
                 first_hit = list(hits_bottom.values())[0][0]
             center = first_hit.rect.center
-            draw_text('You lose', 36, BLACK,
-                      screen_rect.centerx, screen_rect.centery)
+            # draw_text('You lose', 36, BLACK,
+            #           screen_rect.centerx, screen_rect.centery)
             # playing = False
+            is_lose = True
         if is_empty_obj and not do_empty_obj:
             do_empty_obj = True
             group_jellyfish_girl.add(
                 Jellyfish(
                     jellyfish_img=jellyfish_girl_cry_img,
                     jellyfish_num_sub_imgs=3,
-                    x_position=int(SCREEN_W // 2),
-                    y_position=int(SCREEN_H // 2)
+                    x_position=SCREEN_W + random.randint(0, 500),
+                    y_position=int(random.randint(SCREEN_H * 0.2, SCREEN_H * 0.8))
                 )
             )
-            # draw_text('You Win', 36, BLACK,
-            #           screen_rect.centerx, screen_rect.centery)
 
         hits_jellyfish_girl_cry = pygame.sprite.groupcollide(
             group_jellyfish_man, group_jellyfish_girl, True, True, pygame.sprite.collide_mask
@@ -130,13 +130,16 @@ try:
             center = first_hit.rect.center
             is_win = True
         if is_win:
-            draw_text('You Win', 36, BLACK,
-                      screen_rect.centerx, screen_rect.centery)
-        elif not is_win and do_empty_obj and len(group_jellyfish_girl) == 0:
-            draw_text('You lose', 36, BLACK,
-                      screen_rect.centerx, screen_rect.centery)
-        draw_text('Click mouse for game over', 36, BLACK,
-                  screen_rect.centerx, screen_rect.centery-20)
+            outtro_screen(text="You Win", jellyfish_girl_outtro=jellyfish_girl_love_outtro)
+            playing = False
+            # draw_text('You Win', 36, BLACK,
+            #           screen_rect.centerx, screen_rect.centery)
+        elif (not is_win and do_empty_obj and len(group_jellyfish_girl) == 0) or is_lose:
+            outtro_screen(text="You Lose", jellyfish_girl_outtro=jellyfish_girl_cry_outtro)
+            # draw_text('You lose', 36, BLACK,
+            #           screen_rect.centerx, screen_rect.centery)
+        # draw_text('Click mouse for game over', 36, BLACK,
+        #           screen_rect.centerx, screen_rect.centery-20)
 
         pygame.display.flip()
         clock.tick(FPS)

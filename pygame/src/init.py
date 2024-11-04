@@ -1,10 +1,10 @@
 import pygame
 from config import *
 
-# SCREEN_W = 1280
-# SCREEN_H = 720
-SCREEN_W = 1920
-SCREEN_H = 1080
+SCREEN_W = 1280
+SCREEN_H = 720
+# SCREEN_W = 1920
+# SCREEN_H = 1080
 BLACK = (0, 0, 0)
 WHITE = (255, 255, 255)
 BLUESKY = (200, 220, 255)
