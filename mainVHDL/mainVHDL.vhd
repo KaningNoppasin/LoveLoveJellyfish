@@ -37,7 +37,7 @@ BEGIN
         adcData => adc_output,
         tx => tx
       );
-
+		
       LEDS <= adc_output;
 
 --  PROCESS (CLK, NRST)

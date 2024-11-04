@@ -44,6 +44,10 @@
 					"strict" : false
 				},
 				{
+					"name" : "tx",
+					"strict" : false
+				},
+				{
 					"name" : "CLK",
 					"strict" : false
 				},

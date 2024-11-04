@@ -27,7 +27,7 @@ ARCHITECTURE rtl OF UART_TX IS
     SIGNAL byte_select : INTEGER RANGE 0 TO 1 := 0;
 
 BEGIN
-
+	uart_send_trigger <= '1';
     -- UART transmission process (remains largely the same)
     PROCESS (clk)
     BEGIN
@@ -36,7 +36,7 @@ BEGIN
                 WHEN IDLE =>
                     tx <= '1';
                     IF uart_send_trigger = '1' THEN
-                        tx_data <= adcData;
+								tx_data <= adcData;
                         -- tx_data <= std_logic_vector(amplified_value(7 downto 0));
                         -- if byte_select = 0 then
                         --    tx_data <= std_logic_vector(amplified_value(11 downto 4));
