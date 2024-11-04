@@ -57,6 +57,13 @@ class Jellyfish(pygame.sprite.Sprite):
             if self.rect.bottom >= SCREEN_H:
                 self.rect.bottom = SCREEN_H
 
-    def update(self, keys = None, dominant_freq = None):
+    def update_auto_movement(self):
+        self.rect.move_ip(-self.distance, 0)
+        if self.rect.right < 0:
+            self.kill()
+
+    def update(self, keys = None, dominant_freq = None,is_auto = None):
         self.update_animation()
         self.update_movement(keys, dominant_freq)
+        if not is_auto: return
+        self.update_auto_movement()

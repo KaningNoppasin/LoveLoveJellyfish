@@ -5,8 +5,9 @@ import time
 # Serial port configuration
 # Replace with the correct port (e.g., COM3 on Windows or /dev/ttyUSB0 on Linux/Mac)
 SERIAL_PORT = '/dev/tty.usbserial-0001'
+# SERIAL_PORT = '/dev/tty.usbserial-A5XK3RJT'
 # BAUD_RATE = 115200            # Baud rate
-BAUD_RATE = 200000            # Baud rate
+BAUD_RATE = 2000000            # Baud rate
 CHUNK = 1024                  # Number of audio samples to read at a time
 SAMPLE_RATE = 44100           # Sample rate of the incoming audio data
 
@@ -20,6 +21,7 @@ print("Reading frequencies from UART... Press Ctrl+C to stop.")
 try:
     while True:
         # Read audio data from UART
+        print("ser.in_waiting", ser.in_waiting)
         if ser.in_waiting >= CHUNK:  # Ensure we have enough data for FFT
             data = ser.read(CHUNK)
 
