@@ -1,5 +1,5 @@
 Analysis & Synthesis report for mainVHDL
-Mon Nov 04 17:23:43 2024
+Tue Nov 05 18:56:57 2024
 Quartus Prime Version 20.1.1 Build 720 11/11/2020 SJ Lite Edition
 
 
@@ -48,15 +48,15 @@ https://fpgasoftware.intel.com/eula.
 +----------------------------------------------------------------------------------+
 ; Analysis & Synthesis Summary                                                     ;
 +------------------------------------+---------------------------------------------+
-; Analysis & Synthesis Status        ; Successful - Mon Nov 04 17:23:42 2024       ;
+; Analysis & Synthesis Status        ; Successful - Tue Nov 05 18:56:57 2024       ;
 ; Quartus Prime Version              ; 20.1.1 Build 720 11/11/2020 SJ Lite Edition ;
 ; Revision Name                      ; mainVHDL                                    ;
 ; Top-level Entity Name              ; mainVHDL                                    ;
 ; Family                             ; Cyclone IV E                                ;
-; Total logic elements               ; 158                                         ;
-;     Total combinational functions  ; 152                                         ;
-;     Dedicated logic registers      ; 94                                          ;
-; Total registers                    ; 94                                          ;
+; Total logic elements               ; 163                                         ;
+;     Total combinational functions  ; 154                                         ;
+;     Dedicated logic registers      ; 101                                         ;
+; Total registers                    ; 101                                         ;
 ; Total pins                         ; 15                                          ;
 ; Total virtual pins                 ; 0                                           ;
 ; Total memory bits                  ; 0                                           ;
@@ -184,20 +184,20 @@ https://fpgasoftware.intel.com/eula.
 +---------------------------------------------+-----------+
 ; Resource                                    ; Usage     ;
 +---------------------------------------------+-----------+
-; Estimated Total logic elements              ; 158       ;
+; Estimated Total logic elements              ; 163       ;
 ;                                             ;           ;
-; Total combinational functions               ; 152       ;
+; Total combinational functions               ; 154       ;
 ; Logic element usage by number of LUT inputs ;           ;
 ;     -- 4 input functions                    ; 38        ;
-;     -- 3 input functions                    ; 39        ;
-;     -- <=2 input functions                  ; 75        ;
+;     -- 3 input functions                    ; 33        ;
+;     -- <=2 input functions                  ; 83        ;
 ;                                             ;           ;
 ; Logic elements by mode                      ;           ;
-;     -- normal mode                          ; 110       ;
+;     -- normal mode                          ; 112       ;
 ;     -- arithmetic mode                      ; 42        ;
 ;                                             ;           ;
-; Total registers                             ; 94        ;
-;     -- Dedicated logic registers            ; 94        ;
+; Total registers                             ; 101       ;
+;     -- Dedicated logic registers            ; 101       ;
 ;     -- I/O registers                        ; 0         ;
 ;                                             ;           ;
 ; I/O pins                                    ; 15        ;
@@ -205,9 +205,9 @@ https://fpgasoftware.intel.com/eula.
 ; Embedded Multiplier 9-bit elements          ; 0         ;
 ;                                             ;           ;
 ; Maximum fan-out node                        ; CLK~input ;
-; Maximum fan-out                             ; 94        ;
-; Total fan-out                               ; 839       ;
-; Average fan-out                             ; 3.04      ;
+; Maximum fan-out                             ; 101       ;
+; Total fan-out                               ; 874       ;
+; Average fan-out                             ; 3.07      ;
 +---------------------------------------------+-----------+
 
 
@@ -216,9 +216,9 @@ https://fpgasoftware.intel.com/eula.
 +------------------------------------+---------------------+---------------------------+-------------+--------------+---------+-----------+------+--------------+-----------------------------------------+----------------+--------------+
 ; Compilation Hierarchy Node         ; Combinational ALUTs ; Dedicated Logic Registers ; Memory Bits ; DSP Elements ; DSP 9x9 ; DSP 18x18 ; Pins ; Virtual Pins ; Full Hierarchy Name                     ; Entity Name    ; Library Name ;
 +------------------------------------+---------------------+---------------------------+-------------+--------------+---------+-----------+------+--------------+-----------------------------------------+----------------+--------------+
-; |mainVHDL                          ; 152 (1)             ; 94 (0)                    ; 0           ; 0            ; 0       ; 0         ; 15   ; 0            ; |mainVHDL                               ; mainVHDL       ; work         ;
-;    |ADC_Controller:ADC_Controller| ; 116 (116)           ; 70 (70)                   ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |mainVHDL|ADC_Controller:ADC_Controller ; ADC_Controller ; work         ;
-;    |UART_TX:UART_TX|               ; 35 (35)             ; 24 (24)                   ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |mainVHDL|UART_TX:UART_TX               ; UART_TX        ; work         ;
+; |mainVHDL                          ; 154 (1)             ; 101 (0)                   ; 0           ; 0            ; 0       ; 0         ; 15   ; 0            ; |mainVHDL                               ; mainVHDL       ; work         ;
+;    |ADC_Controller:ADC_Controller| ; 112 (112)           ; 76 (76)                   ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |mainVHDL|ADC_Controller:ADC_Controller ; ADC_Controller ; work         ;
+;    |UART_TX:UART_TX|               ; 41 (41)             ; 25 (25)                   ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |mainVHDL|UART_TX:UART_TX               ; UART_TX        ; work         ;
 +------------------------------------+---------------------+---------------------------+-------------+--------------+---------+-----------+------+--------------+-----------------------------------------+----------------+--------------+
 Note: For table entries with two numbers listed, the numbers in parentheses indicate the number of resources of the given type used by the specific entity alone. The numbers listed outside of parentheses indicate the total resources of the given type used by the specific entity and all of its sub-entities in the hierarchy.
 
@@ -265,12 +265,12 @@ Encoding Type:  One-Hot
 +----------------------------------------------+-------+
 ; Statistic                                    ; Value ;
 +----------------------------------------------+-------+
-; Total registers                              ; 94    ;
+; Total registers                              ; 101   ;
 ; Number of registers using Synchronous Clear  ; 8     ;
 ; Number of registers using Synchronous Load   ; 50    ;
-; Number of registers using Asynchronous Clear ; 54    ;
+; Number of registers using Asynchronous Clear ; 60    ;
 ; Number of registers using Asynchronous Load  ; 0     ;
-; Number of registers using Clock Enable       ; 59    ;
+; Number of registers using Clock Enable       ; 72    ;
 ; Number of registers using Preset             ; 0     ;
 +----------------------------------------------+-------+
 
@@ -290,10 +290,11 @@ Encoding Type:  One-Hot
 +--------------------+-----------+---------------+----------------------+------------------------+------------+------------------------------------------------------+
 ; Multiplexer Inputs ; Bus Width ; Baseline Area ; Area if Restructured ; Saving if Restructured ; Registered ; Example Multiplexer Output                           ;
 +--------------------+-----------+---------------+----------------------+------------------------+------------+------------------------------------------------------+
-; 5:1                ; 32 bits   ; 96 LEs        ; 32 LEs               ; 64 LEs                 ; Yes        ; |mainVHDL|ADC_Controller:ADC_Controller|wait_cnt[12] ;
-; 5:1                ; 3 bits    ; 9 LEs         ; 3 LEs                ; 6 LEs                  ; Yes        ; |mainVHDL|UART_TX:UART_TX|bit_index[0]               ;
-; 5:1                ; 2 bits    ; 6 LEs         ; 4 LEs                ; 2 LEs                  ; No         ; |mainVHDL|UART_TX:UART_TX|Selector4                  ;
-; 7:1                ; 2 bits    ; 8 LEs         ; 6 LEs                ; 2 LEs                  ; No         ; |mainVHDL|UART_TX:UART_TX|Selector3                  ;
+; 4:1                ; 8 bits    ; 16 LEs        ; 8 LEs                ; 8 LEs                  ; Yes        ; |mainVHDL|UART_TX:UART_TX|clk_count[1]               ;
+; 5:1                ; 32 bits   ; 96 LEs        ; 32 LEs               ; 64 LEs                 ; Yes        ; |mainVHDL|ADC_Controller:ADC_Controller|wait_cnt[25] ;
+; 5:1                ; 3 bits    ; 9 LEs         ; 3 LEs                ; 6 LEs                  ; Yes        ; |mainVHDL|UART_TX:UART_TX|bit_index[2]               ;
+; 6:1                ; 2 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; No         ; |mainVHDL|UART_TX:UART_TX|Selector4                  ;
+; 8:1                ; 2 bits    ; 10 LEs        ; 4 LEs                ; 6 LEs                  ; No         ; |mainVHDL|UART_TX:UART_TX|Selector3                  ;
 +--------------------+-----------+---------------+----------------------+------------------------+------------+------------------------------------------------------+
 
 
@@ -303,27 +304,27 @@ Encoding Type:  One-Hot
 ; Type                  ; Count                       ;
 +-----------------------+-----------------------------+
 ; boundary_port         ; 15                          ;
-; cycloneiii_ff         ; 94                          ;
-;     CLR               ; 15                          ;
+; cycloneiii_ff         ; 101                         ;
+;     CLR               ; 16                          ;
 ;     CLR SLD           ; 3                           ;
 ;     ENA               ; 8                           ;
-;     ENA CLR           ; 4                           ;
+;     ENA CLR           ; 9                           ;
 ;     ENA CLR SLD       ; 32                          ;
+;     ENA SCLR          ; 8                           ;
 ;     ENA SLD           ; 15                          ;
-;     SCLR              ; 8                           ;
-;     plain             ; 9                           ;
-; cycloneiii_lcell_comb ; 157                         ;
+;     plain             ; 10                          ;
+; cycloneiii_lcell_comb ; 155                         ;
 ;     arith             ; 42                          ;
 ;         2 data inputs ; 42                          ;
-;     normal            ; 115                         ;
-;         0 data inputs ; 2                           ;
-;         1 data inputs ; 11                          ;
-;         2 data inputs ; 25                          ;
-;         3 data inputs ; 39                          ;
+;     normal            ; 113                         ;
+;         0 data inputs ; 1                           ;
+;         1 data inputs ; 6                           ;
+;         2 data inputs ; 35                          ;
+;         3 data inputs ; 33                          ;
 ;         4 data inputs ; 38                          ;
 ;                       ;                             ;
-; Max LUT depth         ; 4.10                        ;
-; Average LUT depth     ; 2.51                        ;
+; Max LUT depth         ; 5.00                        ;
+; Average LUT depth     ; 2.68                        ;
 +-----------------------+-----------------------------+
 
 
@@ -332,7 +333,7 @@ Encoding Type:  One-Hot
 +----------------+--------------+
 ; Partition Name ; Elapsed Time ;
 +----------------+--------------+
-; Top            ; 00:00:01     ;
+; Top            ; 00:00:00     ;
 +----------------+--------------+
 
 
@@ -342,7 +343,7 @@ Encoding Type:  One-Hot
 Info: *******************************************************************
 Info: Running Quartus Prime Analysis & Synthesis
     Info: Version 20.1.1 Build 720 11/11/2020 SJ Lite Edition
-    Info: Processing started: Mon Nov 04 17:23:32 2024
+    Info: Processing started: Tue Nov 05 18:56:48 2024
 Info: Command: quartus_map --read_settings_files=on --write_settings_files=off mainVHDL -c mainVHDL
 Warning (18236): Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
 Info (20030): Parallel compilation is enabled and will use 4 of the 4 processors detected
@@ -350,29 +351,27 @@ Info (12021): Found 2 design units, including 1 entities, in source file mainvhd
     Info (12022): Found design unit 1: mainVHDL-behavioral File: C:/Users/aleen/Downloads/miniProjectSignal/mainVHDL/mainVHDL.vhd Line: 18
     Info (12023): Found entity 1: mainVHDL File: C:/Users/aleen/Downloads/miniProjectSignal/mainVHDL/mainVHDL.vhd Line: 5
 Info (12021): Found 2 design units, including 1 entities, in source file adc_controller.vhd
-    Info (12022): Found design unit 1: ADC_Controller-behavioral File: C:/Users/aleen/Downloads/miniProjectSignal/mainVHDL/ADC_Controller.vhd Line: 17
+    Info (12022): Found design unit 1: ADC_Controller-behavioral File: C:/Users/aleen/Downloads/miniProjectSignal/mainVHDL/ADC_Controller.vhd Line: 18
     Info (12023): Found entity 1: ADC_Controller File: C:/Users/aleen/Downloads/miniProjectSignal/mainVHDL/ADC_Controller.vhd Line: 5
 Info (12021): Found 2 design units, including 1 entities, in source file uart_tx.vhd
     Info (12022): Found design unit 1: UART_TX-rtl File: C:/Users/aleen/Downloads/miniProjectSignal/mainVHDL/UART_TX.vhd Line: 15
     Info (12023): Found entity 1: UART_TX File: C:/Users/aleen/Downloads/miniProjectSignal/mainVHDL/UART_TX.vhd Line: 5
 Info (12127): Elaborating entity "mainVHDL" for the top level hierarchy
-Info (12128): Elaborating entity "ADC_Controller" for hierarchy "ADC_Controller:ADC_Controller" File: C:/Users/aleen/Downloads/miniProjectSignal/mainVHDL/mainVHDL.vhd Line: 22
-Info (12128): Elaborating entity "UART_TX" for hierarchy "UART_TX:UART_TX" File: C:/Users/aleen/Downloads/miniProjectSignal/mainVHDL/mainVHDL.vhd Line: 33
-Info (13000): Registers with preset signals will power-up high File: C:/Users/aleen/Downloads/miniProjectSignal/mainVHDL/ADC_Controller.vhd Line: 77
+Info (12128): Elaborating entity "ADC_Controller" for hierarchy "ADC_Controller:ADC_Controller" File: C:/Users/aleen/Downloads/miniProjectSignal/mainVHDL/mainVHDL.vhd Line: 23
+Info (12128): Elaborating entity "UART_TX" for hierarchy "UART_TX:UART_TX" File: C:/Users/aleen/Downloads/miniProjectSignal/mainVHDL/mainVHDL.vhd Line: 35
+Info (13000): Registers with preset signals will power-up high File: C:/Users/aleen/Downloads/miniProjectSignal/mainVHDL/ADC_Controller.vhd Line: 78
 Info (13003): DEV_CLRn pin will set, and not reset, register with preset signal due to NOT Gate Push-Back
-Warning (13024): Output pins are stuck at VCC or GND
-    Warning (13410): Pin "LEDS[0]" is stuck at VCC File: C:/Users/aleen/Downloads/miniProjectSignal/mainVHDL/mainVHDL.vhd Line: 13
 Info (286030): Timing-Driven Synthesis is running
 Info (16010): Generating hard_block partition "hard_block:auto_generated_inst"
     Info (16011): Adding 0 node(s), including 0 DDIO, 0 PLL, 0 transceiver and 0 LCELL
-Info (21057): Implemented 177 device resources after synthesis - the final resource count might be different
+Info (21057): Implemented 180 device resources after synthesis - the final resource count might be different
     Info (21058): Implemented 3 input pins
     Info (21059): Implemented 12 output pins
-    Info (21061): Implemented 162 logic cells
-Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 3 warnings
-    Info: Peak virtual memory: 4788 megabytes
-    Info: Processing ended: Mon Nov 04 17:23:43 2024
-    Info: Elapsed time: 00:00:11
+    Info (21061): Implemented 165 logic cells
+Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 1 warning
+    Info: Peak virtual memory: 4794 megabytes
+    Info: Processing ended: Tue Nov 05 18:56:57 2024
+    Info: Elapsed time: 00:00:09
     Info: Total CPU time (on all processors): 00:00:11
 
 

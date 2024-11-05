@@ -1,0 +1,18 @@
+Fitter Status : Successful - Wed Nov 06 02:52:13 2024
+Quartus Prime Version : 20.1.1 Build 720 11/11/2020 SJ Lite Edition
+Revision Name : signalProj
+Top-level Entity Name : signalProj
+Family : MAX 10
+Device : 10M50DAF484C7G
+Timing Models : Final
+Total logic elements : 211 / 49,760 ( < 1 % )
+    Total combinational functions : 152 / 49,760 ( < 1 % )
+    Dedicated logic registers : 167 / 49,760 ( < 1 % )
+Total registers : 167
+Total pins : 13 / 360 ( 4 % )
+Total virtual pins : 0
+Total memory bits : 768 / 1,677,312 ( < 1 % )
+Embedded Multiplier 9-bit elements : 0 / 288 ( 0 % )
+Total PLLs : 1 / 4 ( 25 % )
+UFM blocks : 0 / 1 ( 0 % )
+ADC blocks : 1 / 2 ( 50 % )
