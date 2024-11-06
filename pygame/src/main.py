@@ -5,6 +5,7 @@ from pygame.locals import *
 from config import *
 from init import *
 from datetime import datetime
+import threading
 
 from ObjectSprite import *
 from JellyfishSprite import *
@@ -12,128 +13,160 @@ from IntroScreen import *
 
 from readfHzaudio import *
 from OuttroScreen import *
+import time
+from readSerial9 import *
 # ---------------------------------------------
+# Variable to control thread activity
+run_threads = True
+dominant_freq = 0
+# Thread function
+def background_task():
+    global dominant_freq
+    while run_threads:
+        dominant_freq_temp = read_uart_data() / 4
+        if dominant_freq_temp > 2000:
+            continue
+        dominant_freq = dominant_freq_temp
+        print(f" dominant_freq:",dominant_freq)
+
+# Start the thread
+thread = threading.Thread(target=background_task)
+thread.start()
+
+
 playing = False
 running = True
 try:
-    while running:
-        if not playing:
-            intro_screen()
-            playing = True
-            # --------------- init value --------------- #
-            img_top = random.choice(objects_top)
-            img_button = random.choice(objects_bottom)
+    # with serial.Serial(SERIAL_PORT, BAUD_RATE, timeout=TIMEOUT) as ser:
+        while running:
+            if not playing:
+                intro_screen()
+                playing = True
+                # --------------- init value --------------- #
+                img_top = random.choice(objects_top)
+                img_button = random.choice(objects_bottom)
 
-            group_jellyfish_man = pygame.sprite.Group()
-            group_jellyfish_man.add(
-                Jellyfish(
-                    jellyfish_img=jellyfish_man_img,
-                    jellyfish_num_sub_imgs=3,
-                    x_position=int(SCREEN_W * 0.07),
-                    y_position=int(SCREEN_H * 0.9)
+                group_jellyfish_man = pygame.sprite.Group()
+                group_jellyfish_man.add(
+                    Jellyfish(
+                        jellyfish_img=jellyfish_man_img,
+                        jellyfish_num_sub_imgs=3,
+                        x_position=int(SCREEN_W * 0.07),
+                        y_position=int(SCREEN_H * 0.9)
+                    )
                 )
+
+                group_jellyfish_girl = pygame.sprite.Group()
+
+                count_obj = 0
+                OFFSET_NUMBER_OF_OBJ = 2
+                is_empty_obj = False
+                do_empty_obj = False
+                is_win = False
+                is_lose = False
+
+                group_object_top = pygame.sprite.Group()
+                group_object_top.add(ObjectTop(img_top))
+
+                group_object_bottom = pygame.sprite.Group()
+                group_object_bottom.add(ObjectBottom(img_button))
+
+                ADD_object_TOP = pygame.USEREVENT + 1
+                pygame.time.set_timer(ADD_object_TOP, 7000)
+                ADD_object_BOTTOM = pygame.USEREVENT + 2
+                pygame.time.set_timer(ADD_object_BOTTOM, 7000)
+
+
+            for event in pygame.event.get():
+                if event.type == QUIT:  # type: ignore
+                    running = False
+                    pygame.quit()
+                    sys.exit()
+
+                if event.type == ADD_object_TOP and count_obj <= OFFSET_NUMBER_OF_OBJ:
+                    count_obj += 1
+                    img_top = random.choice(
+                        objects_top) if img_button != object_bottom3 else object_top1
+                    if len(group_object_top) < 3:
+                        group_object_top.add(ObjectTop(img_top))
+                if event.type == ADD_object_BOTTOM and count_obj <= OFFSET_NUMBER_OF_OBJ:
+                    count_obj += 1
+                    img_button = random.choice(
+                        objects_bottom) if img_top != object_top3 else object_bottom1
+                    if len(group_object_bottom) < 3:
+                        group_object_bottom.add(ObjectBottom(img_button))
+                if count_obj >= OFFSET_NUMBER_OF_OBJ and len(group_object_top) == 0 and len(group_object_bottom) == 0:
+                    # is_empty_obj = True
+                    pass
+
+            # dominant_freq = readfHz()
+            # while True:
+            # start_time = time.time()
+            # now = datetime.now().strftime("%Y-%m-%d %H:%M:%S.%f")[:-3]
+            # dominant_freq = read_uart_data() / 4
+            # if dominant_freq > 10_000:
+            #     continue
+            # # print(f"{now} dominant_freq:",dominant_freq)
+            # end_time = time.time()
+            # elapsed_time_ms = (end_time - start_time) * 1000000
+            # print(f"Runtime: {elapsed_time_ms:.3f} microseconds")
+            screen.fill(BLUESKY)
+            screen.blit(bg, bg.get_rect())
+
+            keys = pygame.key.get_pressed()
+            # group_jellyfish_man.update()
+            group_jellyfish_man.update(keys, dominant_freq)
+            group_jellyfish_girl.update(is_auto = True)
+
+            group_object_top.update()
+            group_object_bottom.update()
+
+            group_object_top.draw(screen)
+            group_object_bottom.draw(screen)
+            group_jellyfish_man.draw(screen)
+            group_jellyfish_girl.draw(screen)
+
+            hits_top = pygame.sprite.groupcollide(
+                group_jellyfish_man, group_object_top, False, False, pygame.sprite.collide_mask
             )
-
-            group_jellyfish_girl = pygame.sprite.Group()
-
-            count_obj = 0
-            OFFSET_NUMBER_OF_OBJ = 2
-            is_empty_obj = False
-            do_empty_obj = False
-            is_win = False
-            is_lose = False
-
-            group_object_top = pygame.sprite.Group()
-            group_object_top.add(ObjectTop(img_top))
-
-            group_object_bottom = pygame.sprite.Group()
-            group_object_bottom.add(ObjectBottom(img_button))
-
-            ADD_object_TOP = pygame.USEREVENT + 1
-            pygame.time.set_timer(ADD_object_TOP, 7000)
-            ADD_object_BOTTOM = pygame.USEREVENT + 2
-            pygame.time.set_timer(ADD_object_BOTTOM, 7000)
-
-
-        for event in pygame.event.get():
-            if event.type == QUIT:  # type: ignore
-                running = False
-                pygame.quit()
-                sys.exit()
-
-            if event.type == ADD_object_TOP and count_obj <= OFFSET_NUMBER_OF_OBJ:
-                count_obj += 1
-                img_top = random.choice(
-                    objects_top) if img_button != object_bottom3 else object_top1
-                if len(group_object_top) < 3:
-                    group_object_top.add(ObjectTop(img_top))
-            if event.type == ADD_object_BOTTOM and count_obj <= OFFSET_NUMBER_OF_OBJ:
-                count_obj += 1
-                img_button = random.choice(
-                    objects_bottom) if img_top != object_top3 else object_bottom1
-                if len(group_object_bottom) < 3:
-                    group_object_bottom.add(ObjectBottom(img_button))
-            if count_obj >= OFFSET_NUMBER_OF_OBJ and len(group_object_top) == 0 and len(group_object_bottom) == 0:
-                is_empty_obj = True
-
-        dominant_freq = readfHz()
-        screen.fill(BLUESKY)
-        screen.blit(bg, bg.get_rect())
-
-        keys = pygame.key.get_pressed()
-        # group_jellyfish_man.update()
-        group_jellyfish_man.update(keys, dominant_freq)
-        group_jellyfish_girl.update(is_auto = True)
-
-        group_object_top.update()
-        group_object_bottom.update()
-
-        group_object_top.draw(screen)
-        group_object_bottom.draw(screen)
-        group_jellyfish_man.draw(screen)
-        group_jellyfish_girl.draw(screen)
-
-        hits_top = pygame.sprite.groupcollide(
-            group_jellyfish_man, group_object_top, False, False, pygame.sprite.collide_mask
-        )
-        hits_bottom = pygame.sprite.groupcollide(
-            group_jellyfish_man, group_object_bottom, False, False, pygame.sprite.collide_mask
-        )
-        if len(hits_top) > 0 or len(hits_bottom) > 0:
-            if (len(hits_top) > 0):
-                first_hit = list(hits_top.values())[0][0]
-            elif (len(hits_bottom) > 0):
-                first_hit = list(hits_bottom.values())[0][0]
-            center = first_hit.rect.center
-            is_lose = True
-        if is_empty_obj and not do_empty_obj:
-            do_empty_obj = True
-            group_jellyfish_girl.add(
-                Jellyfish(
-                    jellyfish_img=jellyfish_girl_cry_img,
-                    jellyfish_num_sub_imgs=3,
-                    x_position=SCREEN_W + random.randint(0, 500),
-                    y_position=int(random.randint(SCREEN_H * 0.2, SCREEN_H * 0.8))
+            hits_bottom = pygame.sprite.groupcollide(
+                group_jellyfish_man, group_object_bottom, False, False, pygame.sprite.collide_mask
+            )
+            if len(hits_top) > 0 or len(hits_bottom) > 0:
+                if (len(hits_top) > 0):
+                    first_hit = list(hits_top.values())[0][0]
+                elif (len(hits_bottom) > 0):
+                    first_hit = list(hits_bottom.values())[0][0]
+                center = first_hit.rect.center
+                # is_lose = True
+            if is_empty_obj and not do_empty_obj:
+                do_empty_obj = True
+                group_jellyfish_girl.add(
+                    Jellyfish(
+                        jellyfish_img=jellyfish_girl_cry_img,
+                        jellyfish_num_sub_imgs=3,
+                        x_position=SCREEN_W + random.randint(0, 500),
+                        y_position=int(random.randint(SCREEN_H * 0.2, SCREEN_H * 0.8))
+                    )
                 )
+
+            hits_jellyfish_girl_cry = pygame.sprite.groupcollide(
+                group_jellyfish_man, group_jellyfish_girl, True, True, pygame.sprite.collide_mask
             )
+            if len(hits_jellyfish_girl_cry) > 0:
+                if (len(hits_jellyfish_girl_cry) > 0):
+                    first_hit = list(hits_jellyfish_girl_cry.values())[0][0]
+                center = first_hit.rect.center
+                is_win = True
+            if is_win:
+                outtro_screen(text="You Win", jellyfish_girl_outtro=jellyfish_girl_love_outtro)
+                playing = False
+            elif (not is_win and do_empty_obj and len(group_jellyfish_girl) == 0) or is_lose:
+                outtro_screen(text="You Lose", jellyfish_girl_outtro=jellyfish_girl_cry_outtro)
+                playing = False
 
-        hits_jellyfish_girl_cry = pygame.sprite.groupcollide(
-            group_jellyfish_man, group_jellyfish_girl, True, True, pygame.sprite.collide_mask
-        )
-        if len(hits_jellyfish_girl_cry) > 0:
-            if (len(hits_jellyfish_girl_cry) > 0):
-                first_hit = list(hits_jellyfish_girl_cry.values())[0][0]
-            center = first_hit.rect.center
-            is_win = True
-        if is_win:
-            outtro_screen(text="You Win", jellyfish_girl_outtro=jellyfish_girl_love_outtro)
-            playing = False
-        elif (not is_win and do_empty_obj and len(group_jellyfish_girl) == 0) or is_lose:
-            outtro_screen(text="You Lose", jellyfish_girl_outtro=jellyfish_girl_cry_outtro)
-            playing = False
-
-        pygame.display.flip()
-        clock.tick(FPS)
+            pygame.display.flip()
+            clock.tick(FPS)
 except KeyboardInterrupt:
     # Stop and close the stream
     stream.stop_stream()
@@ -146,6 +179,9 @@ except Exception as e:
     print(f"An error occurred: {e}")
 
 finally:
+    # Stop the background task
+    run_threads = False
+    thread.join()
     # Ensure the stream is closed upon exit
     stream.stop_stream()
     stream.close()

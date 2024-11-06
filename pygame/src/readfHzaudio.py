@@ -35,5 +35,9 @@ def readfHz():
     dominant_freq = abs(freqs[np.argmax(magnitudes[:CHUNK // 2])])
 
     # Print the dominant frequency in real-time
-    # print(f"Real-time Dominant Frequency: {dominant_freq:.2f} Hz")
+    print(f"Real-time Dominant Frequency: {dominant_freq:.2f} Hz")
     return dominant_freq
+
+if __name__ == "__main__":
+    while True:
+        readfHz()
