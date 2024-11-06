@@ -9,7 +9,10 @@ BLACK = (0, 0, 0)
 WHITE = (255, 255, 255)
 BLUESKY = (200, 220, 255)
 BLUE = (0, 0, 255)
-DARK_ORCHID = 	(153,50,204)
+# DARK_ORCHID = 		(252,130,191)
+PINK = (252,130,191)
+DEEP_SKY_BLUE = (0,191,255)
+VIOLET = (30,144,255)
 FPS = 60
 
 # --------------- Images and Sounds ---------------

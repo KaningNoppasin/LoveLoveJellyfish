@@ -42,8 +42,8 @@ game_description = {
 
 # Define ratios for font sizes and margins
 TITLE_FONT_SIZE_RATIO = 128 / 1080  # Original title size was 128
-HEADER_FONT_SIZE_RATIO = 50 / 1080  # Original header size was 50
-TEXT_FONT_SIZE_RATIO = 42 / 1080     # Original text size was 42
+HEADER_FONT_SIZE_RATIO = 46 / 1080  # Original header size was 50
+TEXT_FONT_SIZE_RATIO = 40 / 1080     # Original text size was 42
 MARGIN_RATIO = 5 / 1080              # Original margin was 40
 
 
@@ -69,7 +69,7 @@ def render_text_responsive(screen_width, screen_height, text_data):
     title_y_position = int(screen_height * 0.07)
 
     # Render the title
-    draw_text('Love Love Jellyfish', title_font_size, DARK_ORCHID,
+    draw_text('Love Love Jellyfish', title_font_size, PINK,
               cx, title_y_position, fr'{fontsPath}SmothyBubble.com.otf')
 
     # Calculate responsive sizes
@@ -84,7 +84,7 @@ def render_text_responsive(screen_width, screen_height, text_data):
     # Render game description
     for line in text_data['game_description']:
         draw_text(line, text_font_size if line != "Game Description:" else header_font_size,
-                  DARK_ORCHID, cx, y_position, fr'{fontsPath}Quethy.ttf')
+                  DEEP_SKY_BLUE if line != "Game Description:" else VIOLET, cx, y_position, fr'{fontsPath}Stanberry.ttf')
         y_position += text_font_size + margin
 
     # Add some space before the next section
@@ -93,7 +93,7 @@ def render_text_responsive(screen_width, screen_height, text_data):
     # Render gameplay mechanics
     for line in text_data['gameplay_mechanics']:
         draw_text(line, text_font_size if line != "Gameplay Mechanics:" else header_font_size,
-                  DARK_ORCHID, cx, y_position, fr'{fontsPath}Quethy.ttf')
+                  DEEP_SKY_BLUE if line != "Gameplay Mechanics:" else VIOLET, cx, y_position, fr'{fontsPath}Stanberry.ttf')
         y_position += text_font_size + margin
 
 
@@ -109,11 +109,11 @@ def intro_screen():
 
         btn_exit_image = pygame.transform.scale(pygame.image.load(fr'{imagesPath}btn-exit.png'),(SCREEN_W // 15, SCREEN_H // 15))
         btn_exit_rect = btn_exit_image.get_rect(
-            right=cx-30, top=int(SCREEN_H * 0.85))
+            left=cx+30, top=int(SCREEN_H * 0.85))
 
         btn_start_image = pygame.transform.scale(pygame.image.load(fr'{imagesPath}btn-start.png'),(SCREEN_W // 15, SCREEN_H // 15))
         btn_start_rect = btn_start_image.get_rect(
-            left=cx+30, top=int(SCREEN_H * 0.85))
+            right=cx-30, top=int(SCREEN_H * 0.85))
 
         jellyfish_man_intro.update()
         jellyfish_girl_cry_intro.update()

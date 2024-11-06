@@ -17,7 +17,8 @@ import time
 from readSerialfreq import *
 # ---------------------------------------------
 # Variable to control thread activity
-run_threads = True
+# run_threads = True
+run_threads = False
 dominant_freq = 0
 # Thread function
 def get_dominant_freq():
@@ -27,7 +28,7 @@ def get_dominant_freq():
         if dominant_freq_temp > 2000:
             continue
         dominant_freq = dominant_freq_temp
-        # print(f" dominant_freq:",dominant_freq)
+        print(f" dominant_freq:",dominant_freq)
 
 # Start the thread
 thread = threading.Thread(target=get_dominant_freq)
@@ -95,8 +96,8 @@ try:
             if count_obj >= OFFSET_NUMBER_OF_OBJ and len(group_object_top) == 0 and len(group_object_bottom) == 0:
                 is_empty_obj = True
                 pass
-
-        # dominant_freq = readfHz()
+        if not run_threads:
+            dominant_freq = readfHz()
         screen.fill(BLUESKY)
         screen.blit(bg_blur, bg_blur.get_rect())
 
