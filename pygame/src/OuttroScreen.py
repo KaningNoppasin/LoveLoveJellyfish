@@ -43,11 +43,11 @@ def outtro_screen(text, jellyfish_girl_outtro):
         screen.blit(bg, bg.get_rect())
         cx = screen_rect.centerx
 
-        btn_exit_image = pygame.image.load(fr'{imagesPath}btn-exit.png')
+        btn_exit_image = pygame.transform.scale(pygame.image.load(fr'{imagesPath}btn-exit.png'),(SCREEN_W // 15, SCREEN_H // 15))
         btn_exit_rect = btn_exit_image.get_rect(
             right=cx-30, top=int(SCREEN_H * 0.85))
 
-        btn_start_image = pygame.image.load(fr'{imagesPath}btn-start.png')
+        btn_start_image = pygame.transform.scale(pygame.image.load(fr'{imagesPath}btn-start.png'),(SCREEN_W // 15, SCREEN_H // 15))
         btn_start_rect = btn_start_image.get_rect(
             left=cx+30, top=int(SCREEN_H * 0.85))
         draw_text(text, 64, BLACK,

@@ -98,7 +98,7 @@ try:
 
         # dominant_freq = readfHz()
         screen.fill(BLUESKY)
-        screen.blit(bg, bg.get_rect())
+        screen.blit(bg_blur, bg_blur.get_rect())
 
         keys = pygame.key.get_pressed()
         # group_jellyfish_man.update()

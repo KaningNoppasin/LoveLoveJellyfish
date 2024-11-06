@@ -13,8 +13,8 @@ DARK_ORCHID = 	(153,50,204)
 FPS = 60
 
 # --------------- Images and Sounds ---------------
-bg = pygame.transform.scale(pygame.image.load(
-    fr'{imagesPath}bg.png'), (SCREEN_W, SCREEN_H))
+bg = pygame.transform.scale(pygame.image.load(fr'{imagesPath}Background.jpg'), (SCREEN_W, SCREEN_H))
+bg_blur = pygame.transform.scale(pygame.image.load(fr'{imagesPath}BGblurr.jpg'), (SCREEN_W, SCREEN_H))
 
 # ---------------------------------------------
 

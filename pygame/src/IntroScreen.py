@@ -66,7 +66,7 @@ def render_text_responsive(screen_width, screen_height, text_data):
 
     # Calculate y position for title
     # Position for title at the top
-    title_y_position = int(screen_height * 0.05)
+    title_y_position = int(screen_height * 0.07)
 
     # Render the title
     draw_text('Love Love Jellyfish', title_font_size, DARK_ORCHID,
@@ -107,11 +107,11 @@ def intro_screen():
 
         render_text_responsive(SCREEN_W, SCREEN_H, game_description)
 
-        btn_exit_image = pygame.image.load(fr'{imagesPath}btn-exit.png')
+        btn_exit_image = pygame.transform.scale(pygame.image.load(fr'{imagesPath}btn-exit.png'),(SCREEN_W // 15, SCREEN_H // 15))
         btn_exit_rect = btn_exit_image.get_rect(
             right=cx-30, top=int(SCREEN_H * 0.85))
 
-        btn_start_image = pygame.image.load(fr'{imagesPath}btn-start.png')
+        btn_start_image = pygame.transform.scale(pygame.image.load(fr'{imagesPath}btn-start.png'),(SCREEN_W // 15, SCREEN_H // 15))
         btn_start_rect = btn_start_image.get_rect(
             left=cx+30, top=int(SCREEN_H * 0.85))
 
