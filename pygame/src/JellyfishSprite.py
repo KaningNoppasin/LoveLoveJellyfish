@@ -27,7 +27,6 @@ class Jellyfish(pygame.sprite.Sprite):
         self.jellyfish_last_frame = (jellyfish_num_sub_imgs * self.jellyfish_repeat) - 1
 
         self.image = self.jellyfish_sub_imgs[0]
-        # self.rect = self.image.get_rect(center=(int(SCREEN_W * 0.07), int(SCREEN_H * 0.9)))
         self.rect = self.image.get_rect(center=(x_position, y_position))
         self.index = 0
         self.speedx = 5

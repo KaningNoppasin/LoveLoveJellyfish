@@ -24,7 +24,7 @@ game_description = {
         "Game Description:",
         "In Love Love Jellyfish, players step into the translucent world",
         "of a determined jellyfish on a mission to find and rescue",
-        "his beloved. The jellyfish’s girlfriend is trapped in the",
+        "his beloved. The jellyfish’s boyfriend is trapped in the",
         "deep sea, and our hero must navigate through an underwater",
         "maze of obstacles to reach her. The ocean is filled with",
         "floating debris, dangerous sea creatures, and mysterious",

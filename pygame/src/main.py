@@ -24,8 +24,9 @@ dominant_freq = 0
 def get_dominant_freq():
     global dominant_freq
     while run_threads:
-        dominant_freq_temp = read_uart_data() / 4
-        if dominant_freq_temp > 2000:
+        dominant_freq_temp = read_uart_data() / 2
+        # dominant_freq_temp = read_uart_data()
+        if dominant_freq_temp == 0:
             continue
         dominant_freq = dominant_freq_temp
         print(f" dominant_freq:",dominant_freq)
@@ -96,8 +97,8 @@ try:
             if count_obj >= OFFSET_NUMBER_OF_OBJ and len(group_object_top) == 0 and len(group_object_bottom) == 0:
                 is_empty_obj = True
                 pass
-        if not run_threads:
-            dominant_freq = readfHz()
+        # if not run_threads:
+        #     dominant_freq = readfHz()
         screen.fill(BLUESKY)
         screen.blit(bg_blur, bg_blur.get_rect())
 
