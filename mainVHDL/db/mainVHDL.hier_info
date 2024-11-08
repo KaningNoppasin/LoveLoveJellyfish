@@ -3,19 +3,19 @@ CLK => adc_controller:ADC_Controller.CLK
 CLK => uart_tx:UART_TX.clk
 NRST => adc_controller:ADC_Controller.NRST
 NRST => uart_tx:UART_TX.reset_n
-ADC_CSN <= adc_controller:ADC_Controller.ADC_CSN
-ADC_SCLK <= adc_controller:ADC_Controller.ADC_SCLK
-ADC_MOSI <= adc_controller:ADC_Controller.ADC_MOSI
+ADC_CSN << adc_controller:ADC_Controller.ADC_CSN
+ADC_SCLK << adc_controller:ADC_Controller.ADC_SCLK
+ADC_MOSI << adc_controller:ADC_Controller.ADC_MOSI
 ADC_MISO => adc_controller:ADC_Controller.ADC_MISO
-LEDS[0] <= adc_controller:ADC_Controller.LEDS[0]
-LEDS[1] <= adc_controller:ADC_Controller.LEDS[1]
-LEDS[2] <= adc_controller:ADC_Controller.LEDS[2]
-LEDS[3] <= adc_controller:ADC_Controller.LEDS[3]
-LEDS[4] <= adc_controller:ADC_Controller.LEDS[4]
-LEDS[5] <= adc_controller:ADC_Controller.LEDS[5]
-LEDS[6] <= adc_controller:ADC_Controller.LEDS[6]
-LEDS[7] <= adc_controller:ADC_Controller.LEDS[7]
-tx <= uart_tx:UART_TX.tx
+LEDS[0] << adc_controller:ADC_Controller.LEDS[0]
+LEDS[1] << adc_controller:ADC_Controller.LEDS[1]
+LEDS[2] << adc_controller:ADC_Controller.LEDS[2]
+LEDS[3] << adc_controller:ADC_Controller.LEDS[3]
+LEDS[4] << adc_controller:ADC_Controller.LEDS[4]
+LEDS[5] << adc_controller:ADC_Controller.LEDS[5]
+LEDS[6] << adc_controller:ADC_Controller.LEDS[6]
+LEDS[7] << adc_controller:ADC_Controller.LEDS[7]
+tx << uart_tx:UART_TX.tx
 
 
 |mainVHDL|ADC_Controller:ADC_Controller
@@ -92,6 +92,9 @@ CLK => count[1].CLK
 CLK => count[2].CLK
 CLK => count[3].CLK
 CLK => count[4].CLK
+CLK => count[5].CLK
+CLK => count[6].CLK
+CLK => count[7].CLK
 CLK => state~6.DATAIN
 NRST => uart_send_trigger~reg0.ACLR
 NRST => wait_cnt[0].ACLR
@@ -150,6 +153,9 @@ NRST => count[1].ACLR
 NRST => count[2].ACLR
 NRST => count[3].ACLR
 NRST => count[4].ACLR
+NRST => count[5].ACLR
+NRST => count[6].ACLR
+NRST => count[7].ACLR
 NRST => state~8.DATAIN
 NRST => shift_reg[0].ENA
 NRST => shift_reg[15].ENA
@@ -192,9 +198,6 @@ clk => clk_count[1].CLK
 clk => clk_count[2].CLK
 clk => clk_count[3].CLK
 clk => clk_count[4].CLK
-clk => clk_count[5].CLK
-clk => clk_count[6].CLK
-clk => clk_count[7].CLK
 clk => tx_data[0].CLK
 clk => tx_data[1].CLK
 clk => tx_data[2].CLK
@@ -218,9 +221,6 @@ uart_send_trigger => uart_state.OUTPUTSELECT
 uart_send_trigger => uart_state.OUTPUTSELECT
 uart_send_trigger => uart_state.OUTPUTSELECT
 uart_send_trigger => uart_state.OUTPUTSELECT
-uart_send_trigger => clk_count.OUTPUTSELECT
-uart_send_trigger => clk_count.OUTPUTSELECT
-uart_send_trigger => clk_count.OUTPUTSELECT
 uart_send_trigger => clk_count.OUTPUTSELECT
 uart_send_trigger => clk_count.OUTPUTSELECT
 uart_send_trigger => clk_count.OUTPUTSELECT

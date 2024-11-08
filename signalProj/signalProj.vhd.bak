@@ -38,9 +38,7 @@ architecture rtl of signalProj is
     signal sample_tick : std_logic := '0';
     
     -- UART constants (for 2M baud with 50MHz clock)
---    constant CLKS_PER_BIT : integer := 25;
---	constant CLKS_PER_BIT : integer := 200; -- 250_000
-	constant CLKS_PER_BIT : integer := 100;
+    constant CLKS_PER_BIT : integer := 25;
     
     -- Existing signals
     signal adc_value : std_logic_vector(11 downto 0);

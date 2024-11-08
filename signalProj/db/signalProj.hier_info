@@ -9,6 +9,8 @@ clk => clk_count[1].CLK
 clk => clk_count[2].CLK
 clk => clk_count[3].CLK
 clk => clk_count[4].CLK
+clk => clk_count[5].CLK
+clk => clk_count[6].CLK
 clk => tx_data[0].CLK
 clk => tx_data[1].CLK
 clk => tx_data[2].CLK
@@ -89,17 +91,17 @@ reset_n => amplified_value[3].ENA
 reset_n => amplified_value[2].ENA
 reset_n => amplified_value[1].ENA
 reset_n => amplified_value[0].ENA
-led[0] << led_reg[0].DB_MAX_OUTPUT_PORT_TYPE
-led[1] << led_reg[1].DB_MAX_OUTPUT_PORT_TYPE
-led[2] << led_reg[2].DB_MAX_OUTPUT_PORT_TYPE
-led[3] << led_reg[3].DB_MAX_OUTPUT_PORT_TYPE
-led[4] << led_reg[4].DB_MAX_OUTPUT_PORT_TYPE
-led[5] << led_reg[5].DB_MAX_OUTPUT_PORT_TYPE
-led[6] << led_reg[6].DB_MAX_OUTPUT_PORT_TYPE
-led[7] << led_reg[7].DB_MAX_OUTPUT_PORT_TYPE
-led[8] << led_reg[8].DB_MAX_OUTPUT_PORT_TYPE
-led[9] << led_reg[9].DB_MAX_OUTPUT_PORT_TYPE
-tx << tx~reg0.DB_MAX_OUTPUT_PORT_TYPE
+led[0] <= led_reg[0].DB_MAX_OUTPUT_PORT_TYPE
+led[1] <= led_reg[1].DB_MAX_OUTPUT_PORT_TYPE
+led[2] <= led_reg[2].DB_MAX_OUTPUT_PORT_TYPE
+led[3] <= led_reg[3].DB_MAX_OUTPUT_PORT_TYPE
+led[4] <= led_reg[4].DB_MAX_OUTPUT_PORT_TYPE
+led[5] <= led_reg[5].DB_MAX_OUTPUT_PORT_TYPE
+led[6] <= led_reg[6].DB_MAX_OUTPUT_PORT_TYPE
+led[7] <= led_reg[7].DB_MAX_OUTPUT_PORT_TYPE
+led[8] <= led_reg[8].DB_MAX_OUTPUT_PORT_TYPE
+led[9] <= led_reg[9].DB_MAX_OUTPUT_PORT_TYPE
+tx <= tx~reg0.DB_MAX_OUTPUT_PORT_TYPE
 
 
 |signalProj|adc0:u0

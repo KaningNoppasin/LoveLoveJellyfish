@@ -14,8 +14,8 @@ END ENTITY;
 
 ARCHITECTURE rtl OF UART_TX IS
     -- UART constants (for 2M baud with 50MHz clock)
---    CONSTANT CLKS_PER_BIT : INTEGER := 25;
-    CONSTANT CLKS_PER_BIT : INTEGER := 200; -- 250_000
+    CONSTANT CLKS_PER_BIT : INTEGER := 25;
+--    CONSTANT CLKS_PER_BIT : INTEGER := 200; -- 250_000
 
     -- UART signals
     TYPE uart_state_type IS (IDLE, START_BIT, DATA_BITS, STOP_BIT);

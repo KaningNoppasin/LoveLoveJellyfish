@@ -1,5 +1,5 @@
 Flow report for signalProj
-Wed Nov 06 02:52:22 2024
+Wed Nov 06 03:34:53 2024
 Quartus Prime Version 20.1.1 Build 720 11/11/2020 SJ Lite Edition
 
 
@@ -41,17 +41,17 @@ https://fpgasoftware.intel.com/eula.
 +----------------------------------------------------------------------------------+
 ; Flow Summary                                                                     ;
 +------------------------------------+---------------------------------------------+
-; Flow Status                        ; Successful - Wed Nov 06 02:52:19 2024       ;
+; Flow Status                        ; Successful - Wed Nov 06 03:34:49 2024       ;
 ; Quartus Prime Version              ; 20.1.1 Build 720 11/11/2020 SJ Lite Edition ;
 ; Revision Name                      ; signalProj                                  ;
 ; Top-level Entity Name              ; signalProj                                  ;
 ; Family                             ; MAX 10                                      ;
 ; Device                             ; 10M50DAF484C7G                              ;
 ; Timing Models                      ; Final                                       ;
-; Total logic elements               ; 211 / 49,760 ( < 1 % )                      ;
-;     Total combinational functions  ; 152 / 49,760 ( < 1 % )                      ;
-;     Dedicated logic registers      ; 167 / 49,760 ( < 1 % )                      ;
-; Total registers                    ; 167                                         ;
+; Total logic elements               ; 212 / 49,760 ( < 1 % )                      ;
+;     Total combinational functions  ; 155 / 49,760 ( < 1 % )                      ;
+;     Dedicated logic registers      ; 169 / 49,760 ( < 1 % )                      ;
+; Total registers                    ; 169                                         ;
 ; Total pins                         ; 13 / 360 ( 4 % )                            ;
 ; Total virtual pins                 ; 0                                           ;
 ; Total memory bits                  ; 768 / 1,677,312 ( < 1 % )                   ;
@@ -67,7 +67,7 @@ https://fpgasoftware.intel.com/eula.
 +-------------------+---------------------+
 ; Option            ; Setting             ;
 +-------------------+---------------------+
-; Start date & time ; 11/06/2024 02:51:38 ;
+; Start date & time ; 11/06/2024 03:34:20 ;
 ; Main task         ; Compilation         ;
 ; Revision Name     ; signalProj          ;
 +-------------------+---------------------+
@@ -78,7 +78,7 @@ https://fpgasoftware.intel.com/eula.
 +-------------------------------------+--------------------------------------------------------+---------------+-------------+------------+
 ; Assignment Name                     ; Value                                                  ; Default Value ; Entity Name ; Section Id ;
 +-------------------------------------+--------------------------------------------------------+---------------+-------------+------------+
-; COMPILER_SIGNATURE_ID               ; 2543711158273.173083629813024                          ; --            ; --          ; --         ;
+; COMPILER_SIGNATURE_ID               ; 2543711158273.173083886013268                          ; --            ; --          ; --         ;
 ; MAX_CORE_JUNCTION_TEMP              ; 85                                                     ; --            ; --          ; --         ;
 ; MIN_CORE_JUNCTION_TEMP              ; 0                                                      ; --            ; --          ; --         ;
 ; MISC_FILE                           ; adc0/synthesis/../adc0.cmp                             ; --            ; --          ; --         ;
@@ -101,11 +101,11 @@ https://fpgasoftware.intel.com/eula.
 +----------------------+--------------+-------------------------+---------------------+------------------------------------+
 ; Module Name          ; Elapsed Time ; Average Processors Used ; Peak Virtual Memory ; Total CPU Time (on all processors) ;
 +----------------------+--------------+-------------------------+---------------------+------------------------------------+
-; Analysis & Synthesis ; 00:00:24     ; 1.0                     ; 4816 MB             ; 00:00:12                           ;
-; Fitter               ; 00:00:12     ; 1.1                     ; 5668 MB             ; 00:00:06                           ;
-; Assembler            ; 00:00:04     ; 1.0                     ; 4694 MB             ; 00:00:01                           ;
+; Analysis & Synthesis ; 00:00:13     ; 1.0                     ; 4815 MB             ; 00:00:10                           ;
+; Fitter               ; 00:00:10     ; 1.0                     ; 5651 MB             ; 00:00:05                           ;
+; Assembler            ; 00:00:03     ; 1.0                     ; 4694 MB             ; 00:00:01                           ;
 ; Timing Analyzer      ; 00:00:02     ; 1.1                     ; 4827 MB             ; 00:00:01                           ;
-; Total                ; 00:00:42     ; --                      ; --                  ; 00:00:20                           ;
+; Total                ; 00:00:28     ; --                      ; --                  ; 00:00:17                           ;
 +----------------------+--------------+-------------------------+---------------------+------------------------------------+
 
 
