@@ -97,8 +97,8 @@ try:
             if count_obj >= OFFSET_NUMBER_OF_OBJ and len(group_object_top) == 0 and len(group_object_bottom) == 0:
                 is_empty_obj = True
                 pass
-        # if not run_threads:
-        #     dominant_freq = readfHz()
+        if not run_threads:
+            dominant_freq = readfHz()
         screen.fill(BLUESKY)
         screen.blit(bg_blur, bg_blur.get_rect())
 

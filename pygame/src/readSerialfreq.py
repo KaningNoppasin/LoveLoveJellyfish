@@ -2,7 +2,6 @@ import serial
 import numpy as np
 import time
 from collections import deque
-import pyautogui
 
 # Serial configuration
 SERIAL_PORT = '/dev/tty.usbserial-0001'      # Adjust as needed
