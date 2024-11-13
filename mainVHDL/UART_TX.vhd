@@ -35,12 +35,7 @@ BEGIN
                 WHEN IDLE =>
                     tx <= '1';
                     IF uart_send_trigger = '1' THEN
-                        IF byte_select = 0 THEN
-                            tx_data <= adcData;
-                        ELSE
-                            tx_data <= "00000000";
-                        END IF;
-                        -- tx_data <= adcData;
+                        tx_data <= adcData;
                         uart_state <= START_BIT;
                         clk_count <= 0;
                     END IF;
@@ -73,11 +68,6 @@ BEGIN
                     IF clk_count = CLKS_PER_BIT - 1 THEN
                         clk_count <= 0;
                         uart_state <= IDLE;
-                        IF byte_select = 0 THEN
-									byte_select <= 1;
-								ELSE
-									byte_select <= 0;
-								END IF;
                     ELSE
                         clk_count <= clk_count + 1;
                     END IF;

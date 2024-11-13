@@ -1,8 +1,0 @@
-
-State Machine - |UART|state
-Name state.ST_WAIT state.ST_SCK_L state.ST_SCK_H state.ST_START state.ST_IDLE 
-state.ST_IDLE 0 0 0 0 0 
-state.ST_START 0 0 0 1 1 
-state.ST_SCK_H 0 0 1 0 1 
-state.ST_SCK_L 0 1 0 0 1 
-state.ST_WAIT 1 0 0 0 1 
