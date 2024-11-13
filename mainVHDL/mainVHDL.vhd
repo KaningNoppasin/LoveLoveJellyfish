@@ -17,6 +17,7 @@ END mainVHDL;
 
 ARCHITECTURE behavioral OF mainVHDL IS
   SIGNAL adc_output : STD_LOGIC_VECTOR(7 DOWNTO 0) := (OTHERS => '0');
+  SIGNAL uart_send_trigger : STD_LOGIC := '0';
 BEGIN
 
   ADC_Controller : entity work.ADC_Controller
@@ -27,6 +28,7 @@ BEGIN
       ADC_SCLK => ADC_SCLK,
       ADC_MOSI => ADC_MOSI,
       ADC_MISO => ADC_MISO,
+      uart_send_trigger => uart_send_trigger,
       LEDS => adc_output
     );
 
@@ -35,6 +37,7 @@ BEGIN
         clk => CLK,
         reset_n => NRST,
         adcData => adc_output,
+        uart_send_trigger => uart_send_trigger,
         tx => tx
       );
 		

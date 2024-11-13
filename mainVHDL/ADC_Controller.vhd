@@ -10,13 +10,14 @@ ENTITY ADC_Controller IS
     ADC_SCLK : OUT STD_LOGIC; -- ADC SPI SCLK
     ADC_MOSI : OUT STD_LOGIC; -- ADC SPI MOSI
     ADC_MISO : IN STD_LOGIC; -- ADC SPI MISO
+    uart_send_trigger : OUT STD_LOGIC;
     LEDS : OUT STD_LOGIC_VECTOR(7 DOWNTO 0) -- 8-bit ADC OUTPUT
   );
 END ADC_Controller;
 
 ARCHITECTURE behavioral OF ADC_Controller IS
 
-  CONSTANT SPI_CLK_DIV : INTEGER := 25;
+  CONSTANT SPI_CLK_DIV : INTEGER := 156;
   CONSTANT DATA_WIDTH : INTEGER := 16; -- for ADC128S022
 
   TYPE state_type IS (ST_IDLE, ST_START, ST_SCK_H, ST_SCK_L, ST_WAIT);
@@ -48,11 +49,11 @@ BEGIN
     VARIABLE leds_on : INTEGER RANGE 0 TO 7;
     VARIABLE value : INTEGER RANGE 0 TO 255;
   BEGIN
-    value := to_integer(unsigned(adc_data(11 DOWNTO 4)));
-    value := value / 32;
-    leds_on := value;
+    -- value := to_integer(unsigned(adc_data(11 DOWNTO 4)));
+    -- value := value / 32;
+    -- leds_on := value;
     LEDS <= (OTHERS => '0'); -- Default to all LEDs OFF
-    LEDS(leds_on DOWNTO 0) <= (OTHERS => '1'); -- Turn ON the corresponding LEDs
+    LEDS(7 DOWNTO 0) <= (adc_data(11 DOWNTO 4)); -- Turn ON the corresponding LEDs
   END PROCESS;
 
   PROCESS (CLK, NRST)
@@ -83,6 +84,7 @@ BEGIN
       bit_index <= 0;
       wait_cnt <= 0;
       state <= ST_IDLE;
+      uart_send_trigger <= '0';
 
     ELSIF rising_edge(CLK) THEN
 
@@ -93,12 +95,14 @@ BEGIN
           cs_n <= '1';
           sclk <= '1';
           state <= ST_START;
+          uart_send_trigger <= '0';
 
         WHEN ST_START =>
           shift_reg <= (OTHERS => '0');
           shift_reg(13 DOWNTO 11) <= channel; -- for ADC128S022
           cs_n <= '0';
           state <= ST_SCK_L;
+          uart_send_trigger <= '0';
 
         WHEN ST_SCK_L =>
           IF shift_en = '1' THEN
@@ -106,6 +110,7 @@ BEGIN
             mosi <= shift_reg(shift_reg'left);
             state <= ST_SCK_H;
           END IF;
+          uart_send_trigger <= '0';
 
         WHEN ST_SCK_H =>
           IF shift_en = '1' THEN
@@ -120,17 +125,22 @@ BEGIN
               state <= ST_SCK_L;
             END IF;
           END IF;
+          uart_send_trigger <= '0';
 
         WHEN ST_WAIT =>
           adc_data <= shift_reg(11 DOWNTO 0);
+          
           IF wait_cnt = 0 THEN
             state <= ST_IDLE;
+				uart_send_trigger <= '1';
           ELSE
             wait_cnt <= wait_cnt - 1;
+				uart_send_trigger <= '0';
           END IF;
 
         WHEN OTHERS =>
           state <= ST_IDLE;
+          uart_send_trigger <= '0';
       END CASE;
     END IF;
   END PROCESS;
